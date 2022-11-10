@@ -1,0 +1,2 @@
+# azooma-activities
+azooma-activities
