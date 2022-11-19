@@ -1,6 +1,6 @@
 <?php
 
-namespace Classiebit\Eventmie\Http\Controllers\Voyager\BaseController;
+namespace Classiebit\Eventmie\Http\Controllers\Voyager;
 
 use Facades\Classiebit\Eventmie\Eventmie;
 
