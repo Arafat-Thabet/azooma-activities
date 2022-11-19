@@ -13,6 +13,7 @@ class VoyagerMenuController extends BaseVoyagerMenuController
 {
     public function builder($id)
     {
+     
         $menu = Voyager::model('Menu')->findOrFail($id);
 
         $this->authorize('edit', $menu);

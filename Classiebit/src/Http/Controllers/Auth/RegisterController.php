@@ -4,7 +4,7 @@ namespace Classiebit\Eventmie\Http\Controllers\Auth;
 use Facades\Classiebit\Eventmie\Eventmie;
 
 use App\Http\Controllers\Controller;
-
+use Classiebit\Eventmie\Models\Customer;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -48,6 +48,8 @@ class RegisterController extends Controller
          // language change
         $this->middleware('common');
         $this->middleware('guest');
+        $this->middleware('guest:customer');
+
         $this->redirectTo = \URL::previous();
     }
 
@@ -101,7 +103,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:customers'],
             'password' => ['required', 'string', 'min:8'],
             'accept' => ['required'],
         ]);
@@ -115,7 +117,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $user   = User::create([
+        $user   = Customer::create([
                     'name'      => $data['name'],
                     'email'     => $data['email'],
                     'password'  => Hash::make($data['password']),
@@ -138,7 +140,7 @@ class RegisterController extends Controller
                 $user->id, // new registered user
             ];
             
-            $users = User::whereIn('id', $notification_ids)->get();
+            $users = Customer::whereIn('id', $notification_ids)->get();
             if(checkMailCreds()) 
             {
                 try {

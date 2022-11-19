@@ -40,6 +40,7 @@ class MyEventsController extends Controller
     {
         // language change
         $this->middleware('common');
+      
 
         // exclude routes
         $this->middleware('organiser')->except(['delete_event']);
@@ -77,7 +78,7 @@ class MyEventsController extends Controller
             $path = config('eventmie.route.prefix');
 
         // admin can't see organiser bookings
-        if(Auth::user()->hasRole('admin'))
+        if(checkUserRole('admin'))
         {
             return redirect()->route('voyager.events.index');   
         }
@@ -91,7 +92,7 @@ class MyEventsController extends Controller
 
     public function get_myevents(Request $request)
     {
-        if(Auth::user()->hasRole('admin'))
+        if(checkUserRole('admin'))
         {
             return redirect()->route('voyager.events.index');   
         }
@@ -117,7 +118,7 @@ class MyEventsController extends Controller
 
     public function get_all_myevents()
     {
-        if(Auth::user()->hasRole('admin'))
+        if(checkUserRole('admin'))
         {
             return redirect()->route('voyager.events.index');   
         }
@@ -149,7 +150,7 @@ class MyEventsController extends Controller
         // if admin is creating event
         // then user Auth::id() as $organiser_id
         // and organiser id will be the id selected from Vue dropdown
-        if(Auth::user()->hasRole('admin'))
+        if(checkUserRole('admin'))
         {
             $request->validate([
                 'organiser_id'       => 'required|numeric|min:1|regex:^[1-9][0-9]*$^',
@@ -178,14 +179,14 @@ class MyEventsController extends Controller
             $event  = $this->event->get_event($slug);
             $event  = $event->makeVisible('online_location');
             // user can't edit other user event but only admin can edit event's other users
-            if(!Auth::user()->hasRole('admin') && Auth::id() != $event->user_id)
+            if(!Auth::guard('admin')->user()->hasRole('admin') && Auth::id() != $event->user_id)
                 return redirect()->route('eventmie.events_index');
         }
     
         $organisers = [];
         // fetch organisers dropdown
         // only if login user is admin
-        if(Auth::user()->hasRole('admin'))
+        if(Auth::guard('admin')->user()->hasRole('admin'))
         {
             // fetch organisers
             $organisers    = $this->event->get_organizers(null);
@@ -283,7 +284,7 @@ class MyEventsController extends Controller
         }
 
         // Admin controls status via checkbox
-        if(Auth::user()->hasRole('admin'))
+        if(checkUserRole('admin'))
         {
             $status             = (int) $request->status;
             $params["status"]   = $status ? 1 : 0;
@@ -508,12 +509,12 @@ class MyEventsController extends Controller
         ]);
 
         
-        if(empty($request->online_event))
+       /*if(empty($request->online_event))
         {
             $request->validate([
                 'venues_ids'        => 'required'
             ]);
-        }
+        }*/
 
         $venue = Venue::whereId($request->venues_ids)->first();
 
@@ -886,7 +887,7 @@ class MyEventsController extends Controller
         
         // only admin can delete event
         
-        if(Auth::check() && !Auth::user()->hasRole('admin'))
+        if(Auth::check() && !checkUserRole('admin'))
         {
             return redirect()->route('eventmie.events');
         }

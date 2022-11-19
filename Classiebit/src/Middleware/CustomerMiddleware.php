@@ -7,7 +7,8 @@ class CustomerMiddleware {
 
     public function handle($request, Closure $next)
     {
-        if(Auth::check() && Auth::user()->hasRole('customer') )
+       
+        if(Auth::guard('customer')->check() )
         {
             return $next($request);
         }

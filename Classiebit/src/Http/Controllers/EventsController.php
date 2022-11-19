@@ -64,7 +64,7 @@ class EventsController extends Controller
         $path = false;
         if(!empty(config('eventmie.route.prefix')))
             $path = config('eventmie.route.prefix');
-
+          
         return Eventmie::view($view, compact('path', 'extra'));
     }
 
@@ -139,11 +139,9 @@ class EventsController extends Controller
         $filters         = [];
         // call event fillter function
         $filters         = $this->event_filters($request);
-
-        $events          = $this->event->events($filters);
+        $events          = $this->event->events( $filters);
         
         $event_ids       = [];
-
         foreach($events as $key => $value)
             $event_ids[] = $value->id;
 
@@ -207,7 +205,6 @@ class EventsController extends Controller
     {
         // it is calling from model because used subquery
         $event = $this->event->get_event($event->slug);
-
         if(!$event->status || !$event->publish)
             abort('404');
 

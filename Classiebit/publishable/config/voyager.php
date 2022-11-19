@@ -189,10 +189,11 @@ return [
     'primary_color' => '#1b89ef',
 
     'show_dev_tips' => env('EVENTMIE_PKG_DEV', false) && env('DEMO_MODE', false) ? true : false, // Show development tip "How To Use:" in Menu and Settings
-
+  
     // Here you can specify additional assets you would like to be included in the master.blade
     'additional_css' => [
-        'custom_theme'  => '',
+        'custom_theme'  => 'css/rtl.css',
+        'rtl'  => 'frontend-assets?path=css/rtl.css',
     ],
 
     'additional_js' => [

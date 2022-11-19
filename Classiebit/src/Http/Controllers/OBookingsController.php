@@ -28,8 +28,8 @@ class OBookingsController extends Controller
     public function __construct()
     {
         // language change
-        $this->middleware('common');
-    
+       $this->middleware('common');
+  
         $this->middleware(['admin','organiser'])->except(['organiser_bookings_show', 'delete_booking', 
         'get_customers']);
 
@@ -69,7 +69,7 @@ class OBookingsController extends Controller
     public function organiser_bookings(Request $request)
     {
         $params     = [
-            'organiser_id'  => Auth::id(),
+            'organiser_id'  => userInfo()->id,
             'start_date'    => !empty($request->start_date) ? $request->start_date : null,
             'end_date'      => !empty($request->end_date) ? $request->end_date : null,
             'event_id'      => (int)$request->event_id,
@@ -104,7 +104,7 @@ class OBookingsController extends Controller
             'event_id'         => $request->event_id,
             'ticket_id'        => $request->ticket_id,
             'id'               => $request->booking_id,
-            'organiser_id'     => Auth::id(),
+            'organiser_id'     => userInfo()->id,
             'customer_id'      => $request->customer_id,
         ];
 
@@ -133,7 +133,7 @@ class OBookingsController extends Controller
             'event_id'         => $request->event_id,
             'ticket_id'        => $request->ticket_id,
             'id'               => $request->booking_id,
-            'organiser_id'     => Auth::id(),
+            'organiser_id'     => userInfo()->id,
             'customer_id'      => $request->customer_id,
         ];
 
@@ -153,7 +153,7 @@ class OBookingsController extends Controller
 
         $params = [
             'booking_id'       => $request->booking_id,
-            'organiser_id'     => Auth::id(),
+            'organiser_id'     => userInfo()->id,
             'status'           => $request->status ? $request->status : 0,
         ];
        
@@ -222,7 +222,7 @@ class OBookingsController extends Controller
               return response(['status'=>__('eventmie-pro::em.invalid').' '.__('eventmie-pro::em.data'), 'url'=>'/events'], Response::HTTP_OK);    
 
         // admin can see booking detail page
-        if(Auth::user()->hasRole('admin'))
+        if(checkUserRole('admin'))
         {
             // when admin wiil be login and he can see booking help or organiser id
             $params   = [
@@ -272,7 +272,7 @@ class OBookingsController extends Controller
     public function delete_booking($id = null)
     {
         // only admin can delete booking
-        if(Auth::check() && !Auth::user()->hasRole('admin'))
+        if(Auth::check() && !checkUserRole('admin'))
         {
             return redirect()->route('eventmie.events');
         }

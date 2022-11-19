@@ -11,9 +11,7 @@ class AdminMiddleware
 
     public function handle($request, Closure $next)
     {      
-dd( App::currentLocale());
-       
-        if (Auth::check() && Auth::user()->hasRole('admin')) {
+        if (Auth::check() && (checkUserRole('admin') OR checkUserRole('organiser'))) {
             return redirect()->route('voyager.dashboard');
         }
         return $next($request);

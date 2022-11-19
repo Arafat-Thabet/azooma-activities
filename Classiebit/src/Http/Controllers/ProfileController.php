@@ -20,7 +20,7 @@ class ProfileController extends Controller
         // language change
         $this->middleware('common');
     
-        $this->middleware('auth');
+        $this->middleware('auth:customer');
     }
 
     public function index($view = 'eventmie::profile.profile', $extra = [])
@@ -32,6 +32,7 @@ class ProfileController extends Controller
     // get login user
     public function getAuthUser ()
     {
+
         return Auth::user();
     }
 
@@ -39,10 +40,7 @@ class ProfileController extends Controller
     public function updateAuthUser (Request $request)
     {
         // demo mode restrictions
-        if(config('voyager.demo_mode'))
-        {
-            return error_redirect('Demo mode');
-        }
+   
         
         $this->validate($request, [
             'name' => 'required|string',

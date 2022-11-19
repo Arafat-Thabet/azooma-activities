@@ -3,15 +3,18 @@
 namespace Classiebit\Eventmie\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use TCG\Voyager\Traits\Translatable;
 
 class Category extends Model
 {
+  
+
     protected $guarded = [];
     // get categories
     public function get_categories()
     {   
         $category = Category::where(['status' => 1])->get();
-
+      
         return to_array($category);
     }
 

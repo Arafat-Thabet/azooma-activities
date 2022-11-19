@@ -15,16 +15,16 @@ use Classiebit\Eventmie\Models\Tag;
 use Classiebit\Eventmie\Models\Category;
 use Classiebit\Eventmie\Models\Post;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class WelcomeController extends Controller
 {
     
     public function __construct()
     {
-      
         // language change
         $this->middleware('common');
-    
+
         $this->event            = new Event;
         $this->ticket           = new Ticket;
         $this->banner           = new Banner;
@@ -38,7 +38,7 @@ class WelcomeController extends Controller
     // get featured events
     public function index($view = 'eventmie::welcome', $extra = [])
     {
-
+        
         $featured_events     = $this->get_featured_events();
         $top_selling_events  = $this->get_top_selling_events();
         $upcomming_events    = $this->get_upcomming_events();

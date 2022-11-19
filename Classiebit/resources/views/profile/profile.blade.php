@@ -59,7 +59,7 @@
                                     </div>
 
                                     {{-- only for organiser --}}
-                                    @if(Auth::user()->hasRole('organiser'))
+                                    @if(checkUserRole('organiser'))
                                     <div class="form-group row">
                                         <label class="col-md-3">@lang('eventmie-pro::em.organization')</label>
                                         <div class="col-md-9">
@@ -107,7 +107,7 @@
                                     </div>
 
                                     {{-- only for organiser and admin --}}
-                                    @if(!Auth::user()->hasRole('customer'))
+                                    @if(!userInfo()->hasRole('customer'))
 
                                         <hr>
                                             <h4>@lang('eventmie-pro::em.update_bank_details')</h4>
@@ -195,7 +195,7 @@
 
                                 <hr>
                                 {{-- if logged in user is customer and multi-vendor mode is enabled --}}
-                                @if(Auth::user()->hasRole('customer'))
+                                @if(userInfo()->hasRole('customer'))
                                     @if(setting('multi-vendor.multi_vendor'))
                                     
                                         @if((setting('multi-vendor.manually_approve_organizer') && empty($user->organisation)) || !setting('multi-vendor.manually_approve_organizer'))

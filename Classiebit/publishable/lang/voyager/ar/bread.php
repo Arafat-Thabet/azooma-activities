@@ -48,4 +48,5 @@ return [
     'updated_order'          => 'تم تحديث الترتيب',
     'url_slug'               => 'رابط URL (يجب أن يكون فريد)',
     'url_slug_ph'            => 'رابط URL (مثل posts)',
+    "category"                =>"الفئة"
 ];

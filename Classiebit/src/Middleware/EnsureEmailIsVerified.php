@@ -22,7 +22,7 @@ class EnsureEmailIsVerified
         if(!empty(setting('multi-vendor.verify_email')) && Auth::check())
         {
             // except admin
-            if(!Auth::user()->hasRole('admin'))
+            if(!checkUserRole('admin'))
             {
                 if (! $request->user() || ($request->user() instanceof MustVerifyEmail && ! $request->user()->hasVerifiedEmail()))
                 {

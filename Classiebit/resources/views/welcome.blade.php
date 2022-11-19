@@ -27,9 +27,9 @@
                     <banner-slider 
                         :banners="{{ json_encode($banners, JSON_HEX_APOS) }}" 
                         :is_logged="{{ 1 }}" 
-                        :is_customer="{{ Auth::user()->hasRole('customer') ? 1 : 0 }}"
-                        :is_organiser="{{ Auth::user()->hasRole('organiser') ? 1 : 0 }}"
-                        :is_admin="{{ Auth::user()->hasRole('admin') ? 1 : 0 }}"
+                        :is_customer="{{ userInfo()->hasRole('customer') ? 1 : 0 }}"
+                        :is_organiser="{{ checkUserRole('organiser') ? 1 : 0 }}"
+                        :is_admin="{{ checkUserRole('admin') ? 1 : 0 }}"
                         :is_multi_vendor="{{ setting('multi-vendor.multi_vendor') ? 1 : 0 }}"
                         :demo_mode="{{ config('voyager.demo_mode') }}"
                         :check_session="{{ json_encode(session('verify'), JSON_HEX_TAG) }}"
@@ -308,93 +308,8 @@
 @endif    
 <!--Blogs END-->
 
-<!--Organiser section-->
-<section>
-    <div id="lgx-schedule" class="lgx-schedule lgx-schedule-dark">
-        <div class="lgx-inner" style="background-image: url({{ eventmie_asset('img/bg-pattern.png') }});">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="lgx-heading lgx-heading-white">
-                            <h3 class="subheading">@lang('eventmie-pro::em.how_it_works')</h3>
-                            <h2 class="heading"><i class="fas fa-person-booth"></i> @lang('eventmie-pro::em.for_event_organisers')</h2>
-                        </div>
-                    </div>
-                    <!--//main COL-->
-                </div>
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="lgx-travelinfo-content lgx-content-white">
-                            <div class="lgx-travelinfo-single">
-                                <i class="fas fa-calendar-plus fa-4x"></i>
-                                <h3 class="title">1. @lang('eventmie-pro::em.organiser_1')</h3>
-                                <p class="info">@lang('eventmie-pro::em.organiser_1_info')</p>
-                            </div>
-                            <div class="lgx-travelinfo-single">
-                                <i class="fas fa-calendar-check fa-4x"></i>
-                                <h3 class="title">2. @lang('eventmie-pro::em.organiser_2')</h3>
-                                <p class="info">@lang('eventmie-pro::em.organiser_2_info')</p>
-                            </div>
-                            <div class="lgx-travelinfo-single">
-                                <i class="fas fa-money-check-alt fa-4x"></i>
-                                <h3 class="title">3. @lang('eventmie-pro::em.organiser_3')</h3>
-                                <p class="info">@lang('eventmie-pro::em.organiser_3_info')</p>
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-                <!--//.ROW-->
-            </div>
-            <!-- //.CONTAINER -->
-        </div>
-    </div>
-</section>
-<!--TRAVEL INFO END-->
 
-<!--TRAVEL INFO-->
-<section>
-    <div id="lgx-travelinfo" class="lgx-travelinfo">
-        <div class="lgx-inner">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="lgx-heading">
-                            <h3 class="subheading">@lang('eventmie-pro::em.how_it_works')</h3>
-                            <h2 class="heading">@lang('eventmie-pro::em.for_customers')</h2>
-                        </div>
-                    </div>
-                    <!--//main COL-->
-                </div>
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="lgx-travelinfo-content">
-                             <div class="lgx-travelinfo-single">
-                                <i class="fas fa-calendar-alt fa-4x"></i>
-                                <h3 class="title">1. @lang('eventmie-pro::em.customer_1')</h3>
-                                <p class="info">@lang('eventmie-pro::em.customer_1_info')</p>
-                            </div>
-                            <div class="lgx-travelinfo-single">
-                                <i class="fas fa-ticket-alt fa-4x"></i>
-                                <h3 class="title">2. @lang('eventmie-pro::em.customer_2')</h3>
-                                <p class="info">@lang('eventmie-pro::em.customer_2_info')</p>
-                            </div>
-                            <div class="lgx-travelinfo-single">
-                                <i class="fas fa-walking fa-4x"></i>
-                                <h3 class="title">3. @lang('eventmie-pro::em.customer_3')</h3>
-                                <p class="info">@lang('eventmie-pro::em.customer_3_info')</p>
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-                <!--//.ROW-->
-            </div>
-            <!-- //.CONTAINER -->
-        </div>
-    </div>
-</section>
-<!--TRAVEL INFO END-->
+
 
 
 @endsection

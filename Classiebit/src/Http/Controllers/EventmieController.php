@@ -26,13 +26,14 @@ class EventmieController extends Controller
     public function logout()
     {
         Auth::logout();
-        
+        Auth::guard('admin')->logout();
         $redirect = !empty(config('eventmie.route.prefix')) ? config('eventmie.route.prefix') : '/';
         return redirect($redirect);
     }
 
     public function assets(Request $request)
     {
+      
         if(class_exists('\Str'))
             $path = \Str::start(str_replace(['../', './'], '', urldecode($request->path)), DIRECTORY_SEPARATOR);
         else
@@ -40,12 +41,10 @@ class EventmieController extends Controller
         
         // detect package development mode
         // if in package development mode then base will be package else vendor
-        $base = 'vendor'.DIRECTORY_SEPARATOR.'classiebit'.DIRECTORY_SEPARATOR;
-        if(config('voyager.pkg_dev_mode') || config('voyager.demo_mode'))
-            $base = '..'.DIRECTORY_SEPARATOR;
+        $base = DIRECTORY_SEPARATOR.'classiebit';
+
         
-        $path = base_path($base.'eventmie'.DIRECTORY_SEPARATOR.'publishable'.DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.$path);
-        //dd(File::get($path));
+        $path = base_path($base.DIRECTORY_SEPARATOR.'publishable'.DIRECTORY_SEPARATOR.'assets'.$path);
                 if (File::exists($path)) {
             $mime = '';
 
@@ -85,8 +84,8 @@ class EventmieController extends Controller
     public function change_lang($lang = null)
     {
         \Session::put('my_lang', $lang);
+        return redirect()->back();
 
-        return redirect($_SERVER['HTTP_REFERER']);
     }        
      
 }

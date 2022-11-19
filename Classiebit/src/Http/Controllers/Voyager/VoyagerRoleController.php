@@ -9,7 +9,7 @@ class VoyagerRoleController extends BaseVoyagerRoleController
     public function __construct()
     {
         // disable modification when not in package development mode
-        if (!config('voyager.pkg_dev_mode')) 
+     /*    if (config('voyager.pkg_dev_mode')) 
         {
             return redirect()
             ->route("voyager.events.index")
@@ -18,7 +18,7 @@ class VoyagerRoleController extends BaseVoyagerRoleController
                 'alert-type' => 'info',
             ])
             ->send();
-        }
+        } */
         // ---------------------------------------------------------------------
     }
 }

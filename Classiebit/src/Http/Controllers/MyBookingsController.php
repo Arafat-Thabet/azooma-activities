@@ -37,7 +37,7 @@ class MyBookingsController extends Controller
         // language change
         $this->middleware('common');
 
-        $this->middleware(['admin','customer']);
+        $this->middleware(['customer']);
 
         $this->event        = new Event;
         $this->ticket       = new Ticket;
@@ -54,6 +54,7 @@ class MyBookingsController extends Controller
      */
     public function index($view = 'eventmie::bookings.customer_bookings', $extra = [])
     {
+      // dd(notifications());
         // get prifex from eventmie config
         $path = false;
         if(!empty(config('eventmie.route.prefix')))

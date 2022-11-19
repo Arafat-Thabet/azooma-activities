@@ -1,0 +1,111 @@
+
+@font-face 
+{
+  font-family: 'HelveticaNeue';
+  src: url("fonts/HelveticaNeueW23forSKY-Reg.eot") format("embedded-opentype"), 
+  url("fonts/HelveticaNeueW23forSKY-Reg.woff") format("woff");
+  font-weight: normal;
+  font-style: normal; 
+}
+@font-face {
+font-family: 'Din regular';
+src: url("fonts/DinNextRegular.eot") format("embedded-opentype"), 
+url("fonts/DinNextRegular.svg") format("svg"),
+url("fonts/DinNextRegular.woff") format("ttf"),
+url("fonts/DinNextRegular.woff") format("woff"),
+url("fonts/DinNextRegular.woff2") format("woff2");
+font-weight: normal;
+font-style: normal; }
+
+@font-face { 
+font-family: 'Din light';
+src: url("fonts/DinNextLight.eot") format("embedded-opentype"), 
+url("fonts/DinNextLight.svg") format("svg"),
+url("fonts/DinNextLight.woff") format("ttf"),
+url("fonts/DinNextLight.woff") format("woff"),
+url("fonts/DinNextLight.woff2") format("woff2");
+font-weight: light;
+font-style: light; }
+
+@font-face {
+font-family: 'Din meduim';
+src: url("fonts/DinNextMedium.eot") format("embedded-opentype"), 
+url("fonts/DinNextMedium.svg") format("svg"),
+url("fonts/DinNextMedium.woff") format("ttf"),
+url("fonts/DinNextMedium.woff") format("woff"),
+url("fonts/DinNextMedium.woff2") format("woff2");
+font-weight: meduim;
+font-style: meduim; }
+
+@font-face {
+font-family: 'Din bold';
+src: url("fonts/DinNextBold.eot") format("embedded-opentype"), 
+url("fonts/DinNextBold.svg") format("svg"),
+url("fonts/DinNextBold.woff") format("ttf"),
+url("fonts/DinNextBold.woff") format("woff"),
+url("fonts/DinNextBold.woff2") format("woff2");
+font-weight: meduim;
+font-style: meduim; }
+body,a{font-family: 'Din regular','Open Sans', sans-serif !important;}
+.voyager .side-menu.sidebar-inverse .navbar li>a {
+    font-size: 16px;
+}
+.voyager .table>thead>tr>th {
+    font-size: 14px;
+}
+    .statistics .box > i {float: right;}
+    
+element.style {
+}
+#search-input i {
+    display: block;
+    font-size: 18px;
+    transform: rotate(270deg);
+}
+* {
+    outline: none;
+}
+*, :after, :before {
+    box-sizing: border-box;
+}
+user agent stylesheet
+i {
+    font-style: italic;
+}
+#search-input button {
+
+    padding: 2px 5px 0px 7px;
+}
+#search-input button {
+
+    padding: 2px 5px 0px 7px;
+}
+#search-input .input-group {
+
+    left: 17px;
+}
+.voyager .btn{
+    float: left;
+    margin-left:4px;
+}
+#search-input button {
+    border-radius: 0px !important;
+}
+.read-row .Avatar{max-height: 190px !important;max-width: 190px !important;}
+.bread-td-actions .pull-right{float: unset !important;}
+.voyager .table>thead>tr>th ,.voyager .table td { text-align: center;}
+.voyager .table>thead>tr>th>a{color: black}
+#dataTable .bread-actions .btn, .actions a.btn {padding: 5px;}
+[dir="rtl"] .dataTables_length {
+    float: right;
+}
+.dataTables_wrapper .dataTables_filter {
+    float: left;
+    text-align: left;
+}
+.panel-footer{text-align: end;}
+.panel-footer .btn{float: unset;}
+.toggle-group .toggle-handle {
+
+    right: 37px;
+}

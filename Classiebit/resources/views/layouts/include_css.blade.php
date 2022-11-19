@@ -10,3 +10,4 @@
 
 <!-- App CSS -->
 <link rel="stylesheet" href="{{ eventmie_asset('css/app_v1.8.css') }}">
+<link rel="stylesheet" href="{{ eventmie_asset('css/rtl.css') }}">

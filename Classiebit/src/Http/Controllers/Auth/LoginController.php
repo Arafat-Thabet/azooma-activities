@@ -4,6 +4,7 @@ namespace Classiebit\Eventmie\Http\Controllers\Auth;
 use Facades\Classiebit\Eventmie\Eventmie;
 
 use App\Http\Controllers\Controller;
+use Classiebit\Eventmie\Models\Customer;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Classiebit\Eventmie\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -47,6 +48,7 @@ class LoginController extends Controller
          // language change
         $this->middleware('common');
         $this->middleware('guest')->except('logout');
+        $this->middleware('guest:customer')->except('logout');
         $this->redirectTo = \URL::previous();
     }
 
@@ -78,7 +80,7 @@ class LoginController extends Controller
         if(empty($userSocial->getEmail()))
             return error_redirect([__('eventmie-pro::em.email').' '.__('eventmie-pro::em.required'), __('eventmie-pro::em.no_email_attached').ucfirst($social)]);
 
-        $user = User::where(['email' => $userSocial->getEmail()])->first();
+        $user = Customer::where(['email' => $userSocial->getEmail()])->first();
 
         // if user with same email already exist then login 
         if($user)
@@ -95,7 +97,7 @@ class LoginController extends Controller
             else
                 $name   = ucfirst(strstr($userSocial->getEmail(), '@', true));
 
-            $new_user = User::create([
+            $new_user = Customer::create([
                 'name' => $name,
                 'email' => $userSocial->getEmail(),
                 'password' => Hash::make(rand(1,988)), // random password
@@ -103,7 +105,7 @@ class LoginController extends Controller
                 'email_verified_at'  => Carbon::now(), // default email verify true in oauth
             ]);
             
-            $user = User::where(['email' => $userSocial->getEmail()])->first();
+            $user = Customer::where(['email' => $userSocial->getEmail()])->first();
 
             \Auth::login($user);
 
@@ -123,7 +125,7 @@ class LoginController extends Controller
                     $new_user->id, // new registered user
                 ];
                 
-                $users = User::whereIn('id', $notification_ids)->get();
+                $users = Customer::whereIn('id', $notification_ids)->get();
                 if(checkMailCreds()) 
                 {
                     try {

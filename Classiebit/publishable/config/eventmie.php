@@ -38,17 +38,7 @@ return [
     'locales'       => [
         'en',
         'ar',
-        'de',
-        'fr',
-        'es',
-        'hi',
-        'it',
-        'ja',
-        'nl',
-        'ru',
-        'pt',
-        'zh_CN',
-        'zh_TW',
+    
     ],
 
     /*
@@ -63,11 +53,7 @@ return [
     */
     'rtl_langs'        => [
         'ar', // arabic
-        'fa', // persian
-        'he', // hebrew
-        'ms', // malay
-        'ur', // urdu
-        'ml' // malayalam
+  
     ],
 
     /*

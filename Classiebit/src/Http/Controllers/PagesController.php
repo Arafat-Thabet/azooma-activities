@@ -22,6 +22,8 @@ class PagesController extends Controller
     // get featured events
     public function view($page = null, $view = 'eventmie::pages', $extra = [])
     {
+     
+
         $page   = Page::where(['slug' => $page])->firstOrFail();
         return Eventmie::view($view, compact('page', 'extra'));
    }

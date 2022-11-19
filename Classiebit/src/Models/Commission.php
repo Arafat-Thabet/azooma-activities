@@ -81,7 +81,7 @@ class Commission extends Model
         {
             // safe mode is on
             $select = array(
-                            DB::raw("ANY_VALUE($table.organiser_id) as org_id"),
+                            DB::raw("$table.organiser_id as org_id"),
                             DB::raw("(SELECT U.name FROM users U WHERE U.id = org_id) as organiser_name"),
                             DB::raw("SUM($table.customer_paid) as customer_paid_total"),
                             DB::raw("SUM($table.admin_commission) as admin_commission_total"),

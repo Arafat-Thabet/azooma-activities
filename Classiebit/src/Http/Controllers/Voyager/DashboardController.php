@@ -22,7 +22,6 @@ class DashboardController extends VoyagerBaseController
 {
     public function __construct()
     {
-   App::setlocale('en');
         $this->middleware(['admin.user']);
 
         $this->event         = new Event; 

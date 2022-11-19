@@ -41,7 +41,7 @@ class VerificationController extends Controller
     public function __construct()
     {
         $this->redirectTo = route('eventmie.events_index');
-        
+    
          // language change
         $this->middleware('common');
         $this->middleware('auth');

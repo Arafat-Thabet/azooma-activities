@@ -24,7 +24,7 @@ class MenuItemsTableSeeder extends Seeder
         }
 
         // Categories
-        $menuItem = MenuItem::firstOrNew(["menu_id" => $menu->id, "title" => "Categories", "url" => "", "route" => "voyager.categories.index", ]);
+        $menuItem = MenuItem::firstOrNew(["menu_id" => $menu->id, "title" => __("Categories"), "url" => "", "route" => "voyager.categories.index", ]);
         if (!$menuItem->exists) {
             $menuItem->fill(["target" => "_self", "icon_class" => "voyager-categories", "color" => "", "parent_id" => null, "order" => "2", ])->save();
         }

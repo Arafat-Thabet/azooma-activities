@@ -57,7 +57,7 @@ class TicketScanController extends Controller
             $organiser_id = Auth::id();
 
         // check for organizer id except for Admin
-        if(!Auth::user()->hasRole('admin'))
+        if(!checkUserRole('admin'))
             $params['organiser_id'] = $organiser_id;
         
         // check booking 

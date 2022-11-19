@@ -4,6 +4,7 @@ namespace Classiebit\Eventmie\Http\Controllers\Auth;
 use Facades\Classiebit\Eventmie\Eventmie;
 
 use App\Http\Controllers\Controller;
+use Classiebit\Eventmie\Models\Customer;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
 use Classiebit\Eventmie\Models\User;
@@ -75,7 +76,7 @@ class ResetPasswordController extends Controller
             // if token match then will reset password
             if(\Hash::check($request->token, $record->token));
             {
-                $user = User::where(['email' => $request->email])->first();
+                $user = Customer::where(['email' => $request->email])->first();
                 
                 if(!empty($user))
                 {

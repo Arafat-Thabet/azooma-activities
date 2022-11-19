@@ -23,7 +23,7 @@ class ODashboardController extends VoyagerBaseController
     public function __construct()
     {
         $this->middleware(['organiser']);
-
+        //dd(Auth::check());
         $this->dashboard_service = new Dashboard;
     }
 
@@ -33,10 +33,10 @@ class ODashboardController extends VoyagerBaseController
     public function index(Request $request)
     {
         // redirect if admin
-        if(Auth::user()->hasRole('admin'))
+        if(!checkUserRole('admin') && !checkUserRole('organiser'))
             return redirect(route('eventmie.welcome'));
 
-        return $this->dashboard_service->index($request, Auth::user()->id);
+        return $this->dashboard_service->index($request, userInfo()->id);
     }
 
     /**
@@ -45,7 +45,7 @@ class ODashboardController extends VoyagerBaseController
 
     public function EventTotalBySalesPrice(Request $request)
     {
-        $data = $this->dashboard_service->EventTotalBySalesPrice($request, Auth::user()->id);
+        $data = $this->dashboard_service->EventTotalBySalesPrice($request, userInfo()->id);
         
         echo json_encode($data);
 
@@ -57,7 +57,7 @@ class ODashboardController extends VoyagerBaseController
 
     public function getEvent(Request $request)
     {
-        return $this->dashboard_service->getEvent($request, Auth::user()->id);
+        return $this->dashboard_service->getEvent($request, userInfo()->id);
     }
     
     

@@ -14,10 +14,10 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
-        'passwords' => 'users',
+        'guard' => 'customer',
+        'passwords' => 'customers',
     ],
-
+    
     /*
     |--------------------------------------------------------------------------
     | Authentication Guards
@@ -36,12 +36,16 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        'customer' => [
+            'driver' => 'session',
+            'provider' => 'customers',
+        ],
+        'admin' => [
             'driver' => 'session',
             'provider' => 'users',
         ],
     ],
-
+  
     /*
     |--------------------------------------------------------------------------
     | User Providers
@@ -62,9 +66,12 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => Classiebit\Eventmie\Models\User::class,
         ],
-
+        'customers' => [
+            'driver' => 'eloquent',
+            'model' => Classiebit\Eventmie\Models\Customer::class,
+        ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
@@ -87,8 +94,14 @@ return [
     */
 
     'passwords' => [
-        'users' => [
+        'admin' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'customers' => [
+            'provider' => 'customers',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

@@ -26,8 +26,6 @@ class EventsController extends VoyagerBaseController
 
     public function __construct()
     {
-        App::setLocale('ar');
-
         $this->event = new Event;
         // disable modification functions that are not managed from admin panel
         $route_name     = "voyager.events";

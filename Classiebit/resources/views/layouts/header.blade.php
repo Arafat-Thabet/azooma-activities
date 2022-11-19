@@ -1,7 +1,7 @@
 <header>
     <div class="lgx-header">
         <div id="navbar_vue" class="lgx-header-position lgx-header-position-white lgx-header-position-fixed">
-            <div class="lgx-container-fluid" >
+            <div class="lgx-container-fluid">
                 <!-- GDPR -->
                 <cookie-law theme="gdpr" button-text="@lang('eventmie-pro::em.accept')">
                     <div slot="message">
@@ -12,11 +12,11 @@
 
                 <!-- Vue Alert message -->
                 @if ($errors->any())
-                    <alert-message :errors="{{ json_encode($errors->all(), JSON_HEX_APOS) }}"></alert-message>    
+                <alert-message :errors="{{ json_encode($errors->all(), JSON_HEX_APOS) }}"></alert-message>
                 @endif
 
                 @if (session('status'))
-                    <alert-message :message="'{{ session('status') }}'"></alert-message>    
+                <alert-message :message="'{{ session('status') }}'"></alert-message>
                 @endif
                 <!-- Vue Alert message -->
 
@@ -29,7 +29,7 @@
                         </button>
                         <div class="lgx-logo">
                             <a href="{{ eventmie_url() }}" class="lgx-scroll">
-                                <img src="/storage/{{ setting('site.logo') }}" alt="{{ setting('site.site_name') }}"/>
+                                <img src="/storage/{{ setting('site.logo') }}" alt="{{ setting('site.site_name') }}" />
                                 <span class="brand-name">{{ setting('site.site_name') }}</span>
                                 <span class="brand-slogan">{{ setting('site.site_slogan') }}</span>
                             </a>
@@ -38,15 +38,17 @@
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav lgx-nav navbar-right">
                             <!-- Authentication Links -->
-                            @guest
-                                @include('eventmie::layouts.guest_header')
+                            @if(Auth::guard('admin')->check() && (checkUserRole('admin') OR checkUserRole('organiser')))
+              
+                            @include('eventmie::layouts.member_header');
                             @else
-                                @include('eventmie::layouts.member_header')
+                            @guest
+                            @include('eventmie::layouts.guest_header')
+                            @else
+                            @include('eventmie::layouts.member_header')
                             @endguest
-
-                            <li>
-                                <a class="lgx-scroll" href="{{ route('eventmie.venues.index') }}"><i class="fas fa-map-marker"></i> @lang('eventmie-pro::em.venues')</a>
-                            </li>
+                            @endif
+                     
 
                             {{-- Common Header --}}
                             {{-- categories menu items --}}
@@ -77,26 +79,26 @@
                                 </a>
                                 <ul class="dropdown-menu multi-level">
                                     @foreach($headerMenuItems as $parentItem)
-                                        @if(!empty($parentItem->submenu)) 
-                                        <li class="dropdown-submenu">
-                                            <a disabled class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="{{ $parentItem->icon_class }}"></i> {{ $parentItem->title }} &nbsp;&nbsp;<i class="fas fa-angle-right"></i></a>
-                                            <ul class="dropdown-menu">
-                                                @foreach($parentItem->submenu as $childItem)
-                                                <li>
-                                                    <a target="{{ $childItem->target }}" href="{{ $childItem->url }}">
-                                                        <i class="{{ $childItem->icon_class }}"></i> {{ $childItem->title }}
-                                                    </a>
-                                                </li>
-                                                @endforeach
-                                            </ul>
-                                        </li>
-                                        @else
-                                        <li>
-                                            <a class="lgx-scroll" target="{{ $parentItem->target }}" href="{{ $parentItem->url }}">
-                                                <i class="{{ $parentItem->icon_class }}"></i> {{ $parentItem->title }}
-                                            </a>
-                                        </li>
-                                        @endif
+                                    @if(!empty($parentItem->submenu))
+                                    <li class="dropdown-submenu">
+                                        <a disabled class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="{{ $parentItem->icon_class }}"></i> {{ $parentItem->title }} &nbsp;&nbsp;<i class="fas fa-angle-right"></i></a>
+                                        <ul class="dropdown-menu">
+                                            @foreach($parentItem->submenu as $childItem)
+                                            <li>
+                                                <a target="{{ $childItem->target }}" href="{{ $childItem->url }}">
+                                                    <i class="{{ $childItem->icon_class }}"></i> {{ $childItem->title }}
+                                                </a>
+                                            </li>
+                                            @endforeach
+                                        </ul>
+                                    </li>
+                                    @else
+                                    <li>
+                                        <a class="lgx-scroll" target="{{ $parentItem->target }}" href="{{ $parentItem->url }}">
+                                            <i class="{{ $parentItem->icon_class }}"></i> {{ $parentItem->title }}
+                                        </a>
+                                    </li>
+                                    @endif
                                     @endforeach
                                 </ul>
                             </li>
@@ -105,9 +107,10 @@
                             <li>
                                 <a class="lgx-scroll lgx-btn lgx-btn-sm" href="{{ route('eventmie.events_index') }}"><i class="fas fa-calendar-day"></i> @lang('eventmie-pro::em.browse_events')</a>
                             </li>
-                            
+
                         </ul>
-                    </div><!--/.nav-collapse -->
+                    </div>
+                    <!--/.nav-collapse -->
                 </nav>
             </div>
             <!-- //.CONTAINER -->

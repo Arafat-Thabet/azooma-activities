@@ -46,9 +46,9 @@ class BookingsController extends Controller
     // only customers can book tickets so check login user customer or not but admin and organisers can book tickets for customer
     protected function is_admin_organiser(Request $request)
     {
-        
         if(Auth::check())
         {
+         
             // get event by event_id
             $event          = $this->event->get_event(null, $request->event_id);
             
@@ -58,9 +58,9 @@ class BookingsController extends Controller
             
                 
             // organiser can't book other organiser event's tikcets but  admin can book any organiser events'tikcets for customer
-            if(Auth::user()->hasRole('organiser'))
+            if(checkUserRole('organiser'))
             {
-                if(Auth::id() != $event->user_id)
+                if(userInfo()->id != $event->user_id)
                     return false;
             }
             
@@ -74,7 +74,7 @@ class BookingsController extends Controller
             // if admin and organiser is creating booking
             // then user Auth::id() as $customer_id
             // and customer id will be the id selected from Vue dropdown
-            if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('organiser') )
+            if(checkUserRole('admin') || checkUserRole('organiser') )
             {
                 // 1. validate data
                 $request->validate([
@@ -295,6 +295,7 @@ class BookingsController extends Controller
 
         // 1. General validation and get selected ticket and event id
         $data = $this->general_validation($request);
+       
         if(!$data['status'])
             return error($data['error'], Response::HTTP_BAD_REQUEST);
             
@@ -455,10 +456,10 @@ class BookingsController extends Controller
             // if customer then redirect to mybookings
             $url = route('eventmie.mybookings_index');
             
-            if(Auth::user()->hasRole('organiser'))
+            if(checkUserRole('organiser'))
                 $url = route('eventmie.obookings_index');
             
-            if(Auth::user()->hasRole('admin'))
+            if(checkUserRole('admin'))
                 $url = route('voyager.bookings.index');
 
             return response([
@@ -531,7 +532,7 @@ class BookingsController extends Controller
             $msg = __('eventmie-pro::em.booking').' '.__('eventmie-pro::em.failed');
             // if customer then redirect to mybookings
             $url = route('eventmie.mybookings_index');
-            if(Auth::user()->hasRole('organiser'))
+            if(checkUserRole('organiser'))
                 $url = route('eventmie.obookings_index');
 
             return redirect($url)->withErrors([$msg]);
@@ -567,10 +568,10 @@ class BookingsController extends Controller
         
         // if customer then redirect to mybookings
         $url = route('eventmie.mybookings_index');
-        if(Auth::user()->hasRole('organiser'))
+        if(checkUserRole('organiser'))
             $url = route('eventmie.obookings_index');
         
-        if(Auth::user()->hasRole('admin'))
+        if(checkUserRole('admin'))
             $url = route('voyager.bookings.index');
 
         // if success 
@@ -847,7 +848,7 @@ class BookingsController extends Controller
             return true;
 
         // if it's Admin
-        if(Auth::user()->hasRole('admin'))
+        if(checkUserRole('admin'))
             return true;
 
         // get payment method
@@ -870,13 +871,13 @@ class BookingsController extends Controller
         
         // if Organizer
         // check if offline_payment_organizer enabled
-        if(Auth::user()->hasRole('organiser'))
+        if(checkUserRole('organiser'))
             if(setting('booking.offline_payment_organizer'))
                 return true;
 
         // if Customer
         // check if offline_payment_customer enabled
-        if(Auth::user()->hasRole('customer'))
+        if(checkUserRole('customer'))
             if(setting('booking.offline_payment_customer'))
                 return true;
 

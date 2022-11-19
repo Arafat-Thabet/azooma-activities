@@ -227,7 +227,7 @@ class VenueController extends Controller
         // if admin is creating event
         // then user Auth::id() as $organiser_id
         // and organiser id will be the id selected from Vue dropdown
-        if(Auth::user()->hasRole('admin'))
+        if(checkUserRole('admin'))
         {
             $request->validate([
                 'organiser_id'       => 'required|numeric|min:1|regex:^[1-9][0-9]*$^',

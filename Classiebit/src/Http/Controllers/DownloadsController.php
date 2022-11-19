@@ -45,7 +45,7 @@ class DownloadsController extends Controller
      */
     public function index($id = NULL, $order_number = NULL)
     {
-        if(!empty(setting('booking.hide_ticket_download')) &&(Auth::user()->hasRole('organiser') || Auth::user()->hasRole('customer')))
+        if(!empty(setting('booking.hide_ticket_download')) &&(checkUserRole('organiser') || checkUserRole('customer')))
             abort('404');
             
         $id             = (int) $id;
@@ -59,12 +59,12 @@ class DownloadsController extends Controller
         $booking = $booking[0];
 
         // customer can see only their bookings
-        if(Auth::user()->hasRole('customer'))
+        if(checkUserRole('customer'))
             if($booking['customer_id'] != Auth::id())
                 abort('404');
 
         // organiser can see only their events bookings
-        if(Auth::user()->hasRole('organiser'))
+        if(checkUserRole('organiser'))
             if($booking['organiser_id'] != Auth::id())
                 abort('404');
         

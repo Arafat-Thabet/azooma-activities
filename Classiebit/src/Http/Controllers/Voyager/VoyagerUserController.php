@@ -56,17 +56,11 @@ class VoyagerUserController extends BaseVoyagerUserController
         $search = (object) ['value' => $request->get('s'), 'key' => $request->get('key'), 'filter' => $request->get('filter')];
 
         $searchNames = [];
+        $searchNames = [];
         if ($dataType->server_side) {
-            $searchable = SchemaManager::describeTable(app($dataType->model_name)->getTable())->pluck('name')->toArray();
-            $dataRow = Voyager::model('DataRow')->whereDataTypeId($dataType->id)->get();
-            foreach ($searchable as $key => $value) {
-                $field = $dataRow->where('field', $value)->first();
-                $displayName = ucwords(str_replace('_', ' ', $value));
-                if ($field !== null) {
-                    $displayName = $field->getTranslatedAttribute('display_name');
-                }
-                $searchNames[$value] = $displayName;
-            }
+            $searchNames = $dataType->browseRows->mapWithKeys(function ($row) {
+                return [$row['field'] => $row->getTranslatedAttribute('display_name')];
+            });
         }
 
         $orderBy = $request->get('order_by', $dataType->order_column);

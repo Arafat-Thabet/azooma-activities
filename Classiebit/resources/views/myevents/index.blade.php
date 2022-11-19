@@ -8,6 +8,7 @@
     
 @section('content')
 <main>
+    
     <div class="lgx-page-wrapper">
         <section>
             <router-view :date_format="{{ json_encode([

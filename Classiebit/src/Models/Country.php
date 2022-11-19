@@ -22,7 +22,6 @@ class Country extends Model
                 ->select(["countries.*", "events.city", "events.state"])
                 ->where("events.country_id", '!=', null)
                 ->where("events.country_id", '!=', null)
-                ->groupBy('events.id', 'events.city', 'events.state')
                 ->get();
             
 

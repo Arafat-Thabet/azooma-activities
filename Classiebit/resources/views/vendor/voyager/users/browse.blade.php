@@ -1,11 +1,13 @@
 @extends('voyager::master')
 
-@section('page_title', __('voyager::generic.viewing').' '.$dataType->getTranslatedAttribute('display_name_plural'))
+@section('page_title', __('voyager::generic.viewing').' '.__($dataType->getTranslatedAttribute('display_name_plural')))
 
 @section('page_header')
+
+
     <div class="container-fluid">
         <h1 class="page-title">
-            <i class="{{ $dataType->icon }}"></i> {{ $dataType->getTranslatedAttribute('display_name_plural') }}
+            <i class="{{ $dataType->icon }}"></i> {{ __($dataType->getTranslatedAttribute('display_name_plural')) }}
         </h1>
         @can('add', app($dataType->model_name))
             <a href="{{ route('voyager.'.$dataType->slug.'.create') }}" class="btn btn-success btn-add-new">
@@ -54,13 +56,13 @@
                                     <div class="col-2">
                                         <select id="search_key" name="key">
                                             @foreach($searchNames as $key => $name)
-                                                <option value="{{ $key }}" @if($search->key == $key || (empty($search->key) && $key == $defaultSearchKey)) selected @endif>{{ $name }}</option>
+                                                <option value="{{ $key }}" @if($search->key == $key || (empty($search->key) && $key == $defaultSearchKey)) selected @endif>{{ __($name) }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="col-2">
                                         <select id="filter" name="filter">
-                                            <option value="contains" @if($search->filter == "contains") selected @endif>contains</option>
+                                            <option value="contains" @if($search->filter == "contains") selected @endif>{{__('Contains')}}</option>
                                             <option value="equals" @if($search->filter == "equals") selected @endif>=</option>
                                         </select>
                                     </div>
@@ -93,7 +95,7 @@
                                             @if ($isServerSide && $row->type !== 'relationship')
                                                 <a href="{{ $row->sortByUrl($orderBy, $sortOrder) }}">
                                             @endif
-                                            {{ $row->getTranslatedAttribute('display_name') }}
+                                            {{ __($row->getTranslatedAttribute('display_name')) }}
                                             @if ($isServerSide)
                                                 @if ($row->isCurrentSortField($orderBy))
                                                     @if ($sortOrder == 'asc')

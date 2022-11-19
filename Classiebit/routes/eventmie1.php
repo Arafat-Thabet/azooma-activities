@@ -277,7 +277,7 @@ Route::group([
             }
             
             // Admin: redirect to admin-panel
-            if(\Auth::user()->hasRole('admin')) {
+            if(\checkUserRole('admin')) {
                 if($n_type == "user")
                     return redirect()->route('voyager.users.index');
                 else if($n_type == "bookings" || $n_type == "cancel")
@@ -289,7 +289,7 @@ Route::group([
             }
 
             // Organizer: redirect to notification related page
-            if(\Auth::user()->hasRole('organiser')) {
+            if(\checkUserRole('organiser')) {
                 // create events notification
                 if($n_type == "events")
                     return redirect()->route('eventmie.myevents_index');
@@ -300,7 +300,7 @@ Route::group([
             }
 
             // Customer: redirect to notification related page
-            if(\Auth::user()->hasRole('customer')) {
+            if(\checkUserRole('customer')) {
                 // create events notification
                 if($n_type == "user")
                     return redirect()->route('eventmie.profile');
