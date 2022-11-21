@@ -34,7 +34,7 @@ class TicketsController extends Controller
         // language change
         $this->middleware('common');
     
-        $this->middleware('auth');
+        $this->middleware('auth:admin');
 
         $this->event    = new Event;
 

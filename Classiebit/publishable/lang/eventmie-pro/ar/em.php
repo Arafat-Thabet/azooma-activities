@@ -550,7 +550,7 @@ return [
     'view_all_events'                   => "عرض جميع الأحداث",
     'top_selling_events'                => "الأحداث الأكثر مبيعًا",
     'upcoming_events'                   => "الأحداث القادمة",
-    'event_categories'                  => "فئات الحدث",
+    'event_categories'                  => "الانشطة",
     'view_all_blogs'                    => "عرض كل المدونات",
     'for_event_organisers'              => "لمنظمي الحدث",
     'for_customers'                     => "للعملاء",
