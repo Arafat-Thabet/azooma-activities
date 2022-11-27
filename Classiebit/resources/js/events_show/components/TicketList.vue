@@ -133,10 +133,10 @@
                                                         v-if="booked_tickets[item.id+'-'+booked_date_server].total_vacant <= max_ticket_qty" 
                                                         :value="itm" v-for=" (itm, ind) in booked_tickets[item.id+'-'+booked_date_server].total_vacant"  
                                                     >{{itm }}</option>
-                                                    <option v-else :value="itm" v-for=" (itm, ind) in (item.quantity > max_ticket_qty ? parseInt(max_ticket_qty) : parseInt(item.quantity))"  :key="ind">{{itm }}</option>
+                                                    <option v-else :value="itm" v-for=" (itm, val) in (item.quantity > max_ticket_qty ? parseInt(max_ticket_qty) : parseInt(item.quantity))"  :key="val">{{itm }}</option>
                                                 </select>
                                                 <input v-else type="number" name="quantity[]" 
-                                                    v-model="quantity[index]" value="0" class="form-control form-input-sm" 
+                                                    v-model="quantity[index]" class="form-control form-input-sm" 
                                                     min="0" :max="booked_tickets[item.id+'-'+booked_date_server].total_vacant < max_ticket_qty ? booked_tickets[item.id+'-'+booked_date_server].total_vacant : max_ticket_qty"
                                                 >
                                                 <!-- Show if vacant less than max_ticket_qty -->
@@ -159,7 +159,7 @@
                                                     <option value="0" selected>0</option>
                                                     <option :value="itm" v-for=" (itm, ind) in item.quantity > max_ticket_qty ? parseInt(max_ticket_qty) : parseInt(item.quantity)"  :key="ind">{{itm }}</option>
                                                 </select>
-                                                <input v-else type="number" name="quantity[]" v-model="quantity[index]" value="0" class="form-control form-input-sm" min="0" :max="item.quantity > max_ticket_qty ? parseInt(max_ticket_qty) : parseInt(item.quantity)">
+                                                <input v-else type="number" name="quantity[]" v-model="quantity[index]" class="form-control form-input-sm" min="0" :max="item.quantity > max_ticket_qty ? parseInt(max_ticket_qty) : parseInt(item.quantity)">
                                                 <!-- Show if vacant less than max_ticket_qty -->
                                                 <p class="text-info" 
                                                     v-if="item.quantity < max_ticket_qty && item.quantity > 0">

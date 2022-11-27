@@ -6,11 +6,11 @@
             <button type="button" class="lgx-btn lgx-btn-red btn btn-block" @click="openModal = true" v-if="!edit_venue"><i class="fa fa-user-tag"></i> {{ trans('em.add_venue') }}</button>
 
             <div class="modal modal-mask" v-if="openModal">
-                <div class="modal-dialog modal-container">
+                <div class="modal-dialog modal-container modal-lg">
                     <div class="modal-content lgx-modal-box">
                         <div class="modal-header">
                             <button type="button" class="close" @click="close()"><span aria-hidden="true">&times;</span></button>
-                            <h3 class="title">{{ !edit_venue ? trans('em.new') : trans('em.edit') }} {{ trans('em.venue') }}</h3>
+                            <h3 class="title">{{ trans('em.location') }} {{ !edit_venue ? trans('em.new') : trans('em.edit') }} </h3>
                         </div>
 
                         <!-- CUSTOM -->
@@ -63,11 +63,7 @@
                                     <span v-show="errors.has('seated_guestnumber')" class="help text-danger">{{ errors.first('seated_guestnumber') }}</span>
                                 </div>
                                 
-                                <div class="form-group">
-                                    <label for="standing_guestnumber">{{ trans('em.standing_guestnumber') }}<sup>*</sup></label>
-                                    <input type="number" class="form-control lgxname" v-model="standing_guestnumber" name="standing_guestnumber" >
-                                    <span v-show="errors.has('standing_guestnumber')" class="help text-danger">{{ errors.first('standing_guestnumber') }}</span>
-                                </div>
+                              
                                 
                                 <div class="form-group">
                                     <label for="neighborhoods">{{ trans('em.neighborhoods') }}<sup>*</sup></label>
@@ -213,7 +209,6 @@ export default {
             venue_type              : null,
             amenities               : null,
             seated_guestnumber      : null,
-            standing_guestnumber    : null,
             neighborhoods           : null,
             pricing                 : null,
             availability            : null,
@@ -262,7 +257,6 @@ export default {
             this.show_quoteform              = this.edit_venue.show_quoteform;
             this.contact_email              = this.edit_venue.contact_email;
             this.seated_guestnumber     = this.edit_venue.seated_guestnumber;
-            this.standing_guestnumber   = this.edit_venue.standing_guestnumber;
             this.neighborhoods          = this.edit_venue.neighborhoods;
             this.pricing                = this.edit_venue.pricing;
             this.availability           = this.edit_venue.availability;

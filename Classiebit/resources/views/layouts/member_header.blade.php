@@ -61,7 +61,7 @@
     <ul class="dropdown-menu multi-level">
 
         {{-- Customer --}}
-        @if(Auth::guard('customer')->check())
+        @if(Auth::guard('customer')->check()  && checkUserRole('customer'))
         <li>
             <a class="dropdown-item" href="{{ route('eventmie.profile') }}"><i class="fas fa-id-card"></i> @lang('eventmie-pro::em.profile')</a>
         </li>
@@ -73,14 +73,14 @@
         {{-- Organiser --}}
         @if(Auth::guard('admin')->check() && checkUserRole('organiser'))
         <li>
-            <a class="dropdown-item" href="{{ route('eventmie.profile') }}"><i class="fas fa-id-card"></i> @lang('eventmie-pro::em.profile')</a>
+            <a class="dropdown-item" href="{{ route('eventmie.admin_profile') }}"><i class="fas fa-id-card"></i> @lang('eventmie-pro::em.profile')</a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="{{ eventmie_url().'/'.config('eventmie.route.admin_prefix') }}"><i class="fas fa-tachometer-alt"></i> @lang('eventmie-pro::em.dashboard')</a>
         </li>
         <li>
             <a class="dropdown-item" href="{{ route('eventmie.organizer_dashboard') }}"><i class="fas fa-tachometer-alt"></i> @lang('eventmie-pro::em.dashboard')</a>
         </li>
-     <!--    <li>
-            <a class="dropdown-item" href="{{ route('eventmie.ticket_scan') }}"><i class="fas fa-qrcode"></i> @lang('eventmie-pro::em.scan_ticket')</a>
-        </li> -->
         <li>
             <a class="dropdown-item" href="{{ route('eventmie.myevents_form') }}"><i class="fas fa-calendar-plus"></i> @lang('eventmie-pro::em.create_event')</a>
         </li>
@@ -106,11 +106,9 @@
             <i class="fas fa-tachometer-alt"></i>  @lang('eventmie-pro::em.admin_panel')</a>
         </li>
         <li>
-            <a class="dropdown-item" href="{{ route('eventmie.profile') }}"><i class="fas fa-id-card"></i> @lang('eventmie-pro::em.profile')</a>
+            <a class="dropdown-item" href="{{ route('eventmie.admin_profile') }}"><i class="fas fa-id-card"></i> @lang('eventmie-pro::em.profile')</a>
         </li>
-        <li>
-            <a class="dropdown-item" href="{{ route('eventmie.ticket_scan') }}"><i class="fas fa-qrcode"></i> @lang('eventmie-pro::em.scan_ticket')</a>
-        </li>
+     
         <li>
             <a class="dropdown-item" href="{{ route('eventmie.myevents_form') }}"><i class="fas fa-calendar-plus"></i> @lang('eventmie-pro::em.create_event')</a>
         </li>
@@ -130,10 +128,7 @@
 
 {{-- Admin --}}
 @if(Auth::guard('admin')->check() && checkUserRole('admin'))
-<li class="hide-ipad">
-    <a class="lgx-scroll" href="{{ route('eventmie.ticket_scan') }}">
-    <i class="fas fa-qrcode"></i> @lang('eventmie-pro::em.scan_ticket')</a>
-</li>
+
 <li class="hide-ipad">
     <a class="lgx-scroll" href="{{ route('eventmie.myevents_form') }}">
     <i class="fas fa-calendar-plus"></i> @lang('eventmie-pro::em.create_event')</a>
@@ -142,10 +137,7 @@
 
 {{-- Organiser --}}
 @if(Auth::guard('admin')->check() && checkUserRole('organiser'))
-<li class="hide-ipad">
-    <a class="lgx-scroll" href="{{ route('eventmie.ticket_scan') }}">
-    <i class="fas fa-qrcode"></i> @lang('eventmie-pro::em.scan_ticket')</a>
-</li>
+
 <li class="hide-ipad">
     <a class="lgx-scroll" href="{{ route('eventmie.myevents_form') }}">
     <i class="fas fa-calendar-plus"></i> @lang('eventmie-pro::em.create_event')</a>

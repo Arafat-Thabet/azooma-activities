@@ -15,7 +15,7 @@ require('./bootstrap');
 /**
  * Vue Instance 
  */
-import Vue from 'vue/dist/vue';
+import Vue from 'vue';
 window.Vue = Vue;
 
 /**

@@ -1,6 +1,6 @@
 <!-- Event schedules-->
 <template>
-    <div class="col-xs-12">
+    <div class="col-xs-12 col-md-10">
         <div class="lgx-tab" v-if="event.repetitive > 0">
             <ul class="nav nav-pills lgx-nav">
                 <li v-for="(item, index) in calculate_months" 
@@ -54,7 +54,10 @@
                                                     changeTimeFormat(userTimezone1(moment(schedules[index].from_date).format('YYYY-MM')+'-'+selected_date+' '+schedules[index].from_time, 'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss'))
                                                     , changeTimeFormat(userTimezone1(moment(schedules[index].to_date).format('YYYY-MM')+'-'+selected_date+' '+schedules[index].to_time, 'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss')) ) 
                                                     : null">
-                                                <h3 class="title">{{ userTimezone1(dateToShortDate(selected_date+' '+schedules[index].from_time, schedules[index].from_date), date_format.vue_date_format).format(date_format.vue_date_format) }}</h3>
+                                                     <div class="text-center get-ticket-btn"> {{trans('em.booking_now')}}</div>
+                                                <h3 class="title">
+                                                   
+                                                    {{ userTimezone1(dateToShortDate(selected_date+' '+schedules[index].from_time, schedules[index].from_date), date_format.vue_date_format).format(date_format.vue_date_format) }}</h3>
                                                 <h4 class="time">{{ changeTimeFormat(userTimezone1(moment(schedules[index].from_date).format('YYYY-MM')+'-'+selected_date+' '+schedules[index].from_time, 'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss')) }} -
                                                     
                                                     {{ changeTimeFormat(userTimezone1(moment(schedules[index].to_date).format('YYYY-MM')+'-'+selected_date+' '+schedules[index].to_time, 'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss')) }}
@@ -112,6 +115,7 @@
                                                     changeTimeFormat(userTimezone(moment(schedules[index].from_date).format('YYYY-MM')+'-'+selected_date+' '+schedules[index].from_time, 'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss'))
                                                     , changeTimeFormat(userTimezone(moment(schedules[index].to_date).format('YYYY-MM')+'-'+selected_date+' '+schedules[index].to_time, 'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss')) ) 
                                                     : null">
+                                                      <div class="text-center get-ticket-btn"> {{trans('em.booking_now')}}</div>
                                                 <h3 class="title">{{ userTimezone(dateToShortDate(selected_date+' '+schedules[index].from_time, schedules[index].from_date), date_format.vue_date_format).format(date_format.vue_date_format) }}</h3>
                                                 <h4 class="time">{{ changeTimeFormat(userTimezone(moment(schedules[index].from_date).format('YYYY-MM')+'-'+selected_date+' '+schedules[index].from_time, 'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss')) }} -
                                                     
@@ -180,7 +184,7 @@
                                                     {{changeTimeFormat(userTimezone1(moment(schedules[index].to_date).format('YYYY-MM')+'-'+selected_dates[index][0]+' '+schedules[index].to_time, 'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss')) }}
                                                     {{ '('+ showTimezone() +')'  }}
                                                 </h4>
-                                                
+                                                <div class="text-center get-ticket-btn"> {{trans('em.booking_now')}}</div>
                                                 <!-- expired -->
                                                 <h4 class="time event-ended" v-if="userTimezone1(item+'-'+selected_dates[index][selected_dates[index].length - 1]+' '+schedules[index].to_time, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss') < moment().format('YYYY-MM-DD HH:mm:ss')"
                                                 >
@@ -310,6 +314,7 @@
                                                     checkSeatAvailability(moment(event.start_date,'YYYY-MM-DD' ).format('YYYY-MM-DD')))  
                                                 ? singleEvent() : null"
                                             >
+                                            <div class="text-center get-ticket-btn"> {{trans('em.booking_now')}}</div>
                                                 <h3 class="title">{{ convert_date_to_local_format(userTimezone(event.start_date+' '+event.start_time, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD') ) }} - {{ ( userTimezone(event.start_date+' '+event.start_time, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD') <= userTimezone(event.end_date+' '+event.end_time, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD') )  ? convert_date_to_local_format(userTimezone(event.end_date+' '+event.end_time, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD') ) : convert_date_to_local_format(userTimezone(event.start_date+' '+event.start_time, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD') ) }}</h3>
                                                 <h4 class="time">{{ userTimezone(event.start_date+' '+event.start_time, 'YYYY-MM-DD HH:mm:ss').format(date_format.vue_time_format) }} - {{ userTimezone(event.end_date+' '+event.end_time, 'YYYY-MM-DD HH:mm:ss').format(date_format.vue_time_format) }} {{ '('+ showTimezone() +')'  }}</h4>
 

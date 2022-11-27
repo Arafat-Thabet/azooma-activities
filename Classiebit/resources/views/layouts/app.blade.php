@@ -35,6 +35,9 @@
                 'eventmie.register_show', 
                 'eventmie.password.request', 
                 'eventmie.password.reset',
+                'eventmie.admin_profile',
+                'eventmie.profile',
+                
             ]    
         @endphp
         @if (!in_array(Route::currentRouteName(), $no_breadcrumb))

@@ -28,7 +28,7 @@ class EventsController extends Controller
      */
     public function __construct()
     {
-        
+
         // language change
         $this->middleware('common');
     
@@ -203,6 +203,7 @@ class EventsController extends Controller
      */
     public function show(Event $event, $view = 'eventmie::events.show', $extra = [])
     {
+     
         // it is calling from model because used subquery
         $event = $this->event->get_event($event->slug);
         if(!$event->status || !$event->publish)

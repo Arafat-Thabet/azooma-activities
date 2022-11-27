@@ -49,6 +49,7 @@
 <script>    
     var is_event_id    = {!! (!empty($event) ? $event->id : 0) !!};
 </script>
-<script type="text/javascript" src="{{ eventmie_asset('js/events_manage_v1.8.js') }}"></script>
+<script type="text/javascript" src="{{ eventmie_asset('js/events_manage_v1.9.js') }}"></script>
 
 @stop
+

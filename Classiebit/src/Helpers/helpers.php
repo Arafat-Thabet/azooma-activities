@@ -218,9 +218,9 @@ if (!function_exists('lang_selector')) {
         // fetch langs from folder
         $directories = File::directories($lang_path);
         $directories = array_map('basename', $directories);
+        return ['ar', 'en'];
 
         return $directories;
-        return ['ar', 'en'];
     }
 }
 

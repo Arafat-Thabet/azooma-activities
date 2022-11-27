@@ -29,5 +29,5 @@
     var path = {!! json_encode($path, JSON_HEX_TAG) !!};
 </script>
 <script  src="https://maps.googleapis.com/maps/api/js?key={{setting('apps.google_map_key')}}&libraries=places"></script>
-<script type="text/javascript" src="{{ eventmie_asset('js/venues_manage_v1.8.js') }}"></script>
+<script type="text/javascript" src="{{ eventmie_asset('js/venues_manage_v1.9.js') }}"></script>
 @stop

@@ -14,7 +14,7 @@
                             <div v-if="!organiser_id">
                                 <v-select 
                                     label="name" 
-                                    class="style-chooser" 
+                                    class="style-chooser none-select2" 
                                     :placeholder="trans('em.search_organiser')+' '+trans('em.email')+'/'+trans('em.name')"
                                     v-model="organizer" 
                                     :required="!organizer" 
@@ -39,7 +39,7 @@
     
                         <div class="form-group">
                             <label>{{ trans('em.select_category') }}</label>
-                            <select name="category_id" class="form-control" v-model="category_id" v-validate="'required|decimal|is_not:0'" @change="isDirty()">
+                            <select name="category_id" class="form-control none-select2" v-model="category_id" v-validate="'required|decimal|is_not:0'" @change="isDirty()">
                                 <option value="0">-- {{ trans('em.category') }} --</option>
                                 <option v-for="(category, index) in categories" :key = "index" :value="category.id">{{category.name}}</option>
                             </select>
@@ -67,14 +67,14 @@
                         <div class="form-group">
                             <label>{{ trans('em.description') }}</label>
                             <textarea class="form-control"  rows="3" name="description" :value="description" v-validate="'required'" style="display:none;"></textarea>
-                            <ckeditor  v-model="description"></ckeditor>
+                            <ckeditor  v-model="description" :config="editorConfig"></ckeditor>
                             <span v-show="errors.has('description')" class="help text-danger">{{ errors.first('description') }}</span>
                         </div>
 
                         <div class="form-group">
                             <label>{{ trans('em.more_event_info') }} </label>
                             <textarea class="form-control" rows="3" name="faq" :value="faq" style="display:none;"></textarea>
-                            <ckeditor v-model="faq"></ckeditor>
+                            <ckeditor v-model="faq" :config="editorConfig"></ckeditor>
                             <span v-show="errors.has('faq')" class="help text-danger">{{ errors.first('faq') }}</span>
                         </div>
 
@@ -140,7 +140,13 @@ export default {
             //selected organizer
             organizer       : this.selected_organiser,
             offline_payment_info :  null,
+            editorConfig: {
+        language:"ar",
+        contentsLangDirection:"rtl"
+    
+    }
         }
+    
     },
 
     computed: {

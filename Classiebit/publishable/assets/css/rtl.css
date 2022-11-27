@@ -47,6 +47,12 @@ url("fonts/DinNextBold.woff2") format("woff2");
 font-weight: meduim;
 font-style: meduim; }
 body,a{font-family: 'Din regular','Open Sans', sans-serif !important;}
+.lgx-heading .heading, .lgx-heading .subheading,.h2, .h3, h2, h3  {
+    font-family: 'Din regular','Open Sans', sans-serif !important;
+}
+.lgx-heading .fa-star {
+    font-size: 24px;
+}
 .voyager .side-menu.sidebar-inverse .navbar li>a {
     font-size: 16px;
 }
@@ -109,3 +115,71 @@ i {
 
     right: 37px;
 }
+.lgx-header-position,.lgx-header-position-fixed {
+    margin-top: 0;
+     position: relative ;
+    background-color: #00192f;
+}
+.lgx-single-service p{line-height: 16px;}
+.lgx-about-service .lgx-single-service-color .text-area .title {
+    display: inline-block;
+    font-size: 1.6rem
+}
+.get-ticket-btn{color: #fff;}
+.lgx-about-content-area .lgx-heading,.lgx-about-content{
+    text-align: start;
+}
+.form-control 
+ ,.multiselect__tags {
+ 
+    text-align: start !important;
+}
+.login-card,.card-registration{color: #fff;    background-color: #00192fba;
+}
+
+.card-registration .form-control {
+    background-color: #fff !important;
+    color: black !important;
+}
+.lgx-registration-form-box input.form-control, .lgx-registration-form-box input.wpcf7-form-control{
+    color: black !important;
+ 
+}
+.card-registration h3{color: #fff !important; }
+.card-registration .form-control {
+
+    height: 33px !important;
+
+}
+.card-registration  label {
+
+    text-align: start;
+
+    display: block;
+}
+.required {color:red}
+.has-error .invalid-feedback{text-align: start !important;}
+.select2-container--default{
+width: 100%;
+text-align: start;  
+  height: 40px !important;
+
+}
+.text-start{text-align: start;}
+.lgx-registration-form-box {
+
+    padding-top: 10px;
+    min-height: 85vh;
+}
+@media (max-width: 767px){
+.lgx-registration-form-box.lgx-registration-banner-box {
+    margin-top: 0;
+}
+.main-wrapper {
+    min-height: 51vh;
+}
+}
+.user-profile .form-control{height: 33px !important;}
+.js-datepicker{width: 120px !important; display: inline !important;}
+.js-datepicker-label{display: inline !important;}
+.text-end{text-align: end;}

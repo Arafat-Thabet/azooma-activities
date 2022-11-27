@@ -46,7 +46,7 @@ class MyVenueController extends Controller
         $id     = (int) $id;
         $event  = [];
         
-        $organiser_id    = Auth::id();
+        $organiser_id    = userinfo()->id;
 
         
         
@@ -81,7 +81,7 @@ class MyVenueController extends Controller
     {
         // if login user is Organiser then 
         // organiser id = Auth::id();
-        $this->organiser_id = Auth::id();
+        $this->organiser_id = userInfo()->id;
 
         // if admin is creating event
         // then user Auth::id() as $organiser_id

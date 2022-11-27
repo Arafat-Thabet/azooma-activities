@@ -8,6 +8,7 @@ use Classiebit\Eventmie\Middleware\Authenticate;
 
 use Classiebit\Eventmie\Http\Controllers\VenueController;
 use Classiebit\Eventmie\Http\Controllers\MyVenueController;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Request as FacadesRequest;
 
 /*
@@ -17,7 +18,6 @@ use Illuminate\Support\Facades\Request as FacadesRequest;
 */
 
 /* Eventmie-pro package namespace */
-
 $namespace = !empty(config('eventmie.controllers.namespace')) ? '\\' . config('eventmie.controllers.namespace') : '\Classiebit\Eventmie\Http\Controllers';
 
 /* Localization */
@@ -210,6 +210,16 @@ Route::group([
         Route::get('/api/get_mybookings', "$controller@mybookings")->name('mybookings');
         Route::post('/api/cancel', "$controller@cancel")->name('mybookings_cancel');
     });
+    Route::prefix('/admin_profile')->group(function () use ($namespace) {
+        $controller = $namespace . '\AdminProfileController';
+
+        Route::get('/', "$controller@index")->name('admin_profile');
+
+        Route::post('/updateAuthUser', "$controller@updateAuthUser")->name('adminupdateAuthUser');
+        Route::post('/updateAuthUserRole', "$controller@updateAuthUserRole")->name('adminupdateAuthUserRole');
+    }); 
+    
+    
 
     /* My Bookings (organizer) */
     Route::prefix('/bookings')->group(function () use ($namespace) {
@@ -256,13 +266,14 @@ Route::group([
         Route::get('/api/countries', "$controller@countries")->name('myevents_countries');
         Route::post('/api/get_myevent', "$controller@get_user_event")->name('get_myevent');
         Route::post('/api/publish_myevent', "$controller@event_publish")->name('publish_myevent');
+     
 
         Route::post('/api/myevent_organizers', "$controller@get_organizers")->name('get_organizers');
 
         //delete multiple images
         Route::post('delete/image', "$controller@delete_image")->name('delete_image');
     });
-
+ 
     /* Notification */
     Route::prefix('/notifications')->group(function () use ($namespace) {
 
@@ -327,8 +338,11 @@ Route::group([
         $controller = $namespace . '\ProfileController';
 
         Route::get('/', "$controller@index")->name('profile');
+        Route::get('/edit_password', "$controller@edit_password")->name('edit_password');
         Route::post('/updateAuthUser', "$controller@updateAuthUser")->name('updateAuthUser');
         Route::post('/updateAuthUserRole', "$controller@updateAuthUserRole")->name('updateAuthUserRole');
+        Route::post('/updateUserPassword', "$controller@updateUserPassword")->name('updateUserPassword');
+        
     });
 
     /* Blogs */

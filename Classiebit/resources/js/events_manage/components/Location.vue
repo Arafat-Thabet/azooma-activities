@@ -8,21 +8,11 @@
                         <input type="hidden" name="event_id" v-model="event_id">
                         <input type="hidden" name="organiser_id" v-model="organiser_id">
                         
-                        <div class="form-group">
-                            <input type="checkbox" class="custom-control-input" name="online_event" v-model="online_event" :value="1" @change="isDirty()">
-                            <label class="custom-control-label" >{{ trans('em.online_event') }}</label>
-                        </div>
+                   
                         
-                        <div class="form-group" v-if="online_event > 0">
-                            <label for="online_location">{{ trans('em.online_location') }}</label>
-                            <textarea class="form-control"  rows="3" name="online_location" :value="online_location" style="display:none;"></textarea>
-                            <ckeditor  v-model="online_location" ></ckeditor>
-                            <span v-show="errors.has('online_location')" class="help text-danger">{{ errors.first('online_location') }}</span>
-                            <span class="help-block">{{ trans('em.online_secret') }}</span>
-                        </div>
-
+                  
                         <div>
-                            <label>{{ trans('em.event_venues') }} ({{ trans('em.optional') }})
+                            <label>{{ trans('em.location') }} ({{ trans('em.optional') }})
 
                             </label>
                             <multiselect
@@ -59,13 +49,7 @@
                                     </i>
                                 </span>
                             </template>
-                            <!-- <template slot="clear" slot-scope="props">
-                                <div
-                                class="multiselect__clear"
-                                v-if="tmp_venues_ids.length"
-                                @mousedown.prevent.stop="clearAll(props.search)"
-                                ></div>
-                            </template> -->
+                     
                             <span slot="noResult"> {{ trans('em.venues_not_found') }}</span>
                             </multiselect>
                             
@@ -74,56 +58,6 @@
 
 
 
-                        <!-- <div class="form-group">
-                            <label for="venue">{{ trans('em.venue') }}</label>
-                            <input type="text" class="form-control" name="venue" v-validate="'required'" v-model="venue" @change="isDirty()">
-                            <span v-show="errors.has('venue')" class="help text-danger">{{ errors.first('venue') }}</span>
-                        </div>     -->
-
-
-                        <!-- <div class="form-group">
-                            <label for="latitude">Google {{ trans('em.map_lat') }}</label>
-                            <input type="text" class="form-control" name="latitude" placeholder="e.g 27.1751448" v-model="latitude" @change="isDirty()">
-                        </div>    
-
-                        <div class="form-group">
-                            <label for="longitude">Google {{ trans('em.map_long') }}</label>
-                            <input type="text" class="form-control" name="longitude" v-model="longitude" placeholder="78.0399535" @change="isDirty()">
-                            
-                        </div>    
-
-                        <div class="form-group">
-                            <label for="address">{{ trans('em.venue_address') }}</label>
-                            <textarea class="form-control" rows="3" name="address" v-model="address" @change="isDirty()"></textarea>
-                            <span v-show="errors.has('address')" class="help text-danger">{{ errors.first('address') }}</span>
-                        </div>
-                            
-                        <div class="form-group">
-                            <label for="city">{{ trans('em.city') }}</label>
-                            <input type="text" class="form-control"  name="city" v-model="city" @change="isDirty()">
-                            <span v-show="errors.has('city')" class="help text-danger">{{ errors.first('city') }}</span>
-                        </div>     
-                        
-                        <div class="form-group">
-                            <label for="state">{{ trans('em.state') }}</label>
-                            <input type="text" class="form-control"  name="state" v-model="state" @change="isDirty()">
-                            <span v-show="errors.has('state')" class="help text-danger">{{ errors.first('state') }}</span>
-                        </div>     
-                        
-                        <div class="form-group">
-                            <label for="zipcode">{{ trans('em.zipcode') }}</label>
-                            <input type="text" class="form-control"  name="zipcode" v-model="zipcode" @change="isDirty()">
-                            <span v-show="errors.has('zipcode')" class="help text-danger">{{ errors.first('zipcode') }}</span>
-                        </div>      -->
-                            
-                        <!-- <div class="form-group">
-                            <label for="country_id">{{ trans('em.select_country') }}</label>
-                            <select name="country_id" class="form-control" v-model="country_id" @change="isDirty()">
-                                <option value="0">-- {{ trans('em.country') }} --</option>
-                                <option  v-for="(country, index) in countries" :key="index" :value="country.id">{{country.country_name}}</option>
-                            </select>
-                            <span v-show="errors.has('country_id')" class="help text-danger">{{ errors.first('country_id') }}</span>
-                        </div>      -->
                         
                         <button type="submit" class="btn lgx-btn btn-block"><i class="fas fa-sd-card"></i> {{ trans('em.save') }}</button>
                     </form>

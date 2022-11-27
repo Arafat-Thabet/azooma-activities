@@ -7,7 +7,6 @@
 @section('authcontent')
 
 
-<h2 class="title">@lang('eventmie-pro::em.login')</h2>
 
 @if(config('voyager.demo_mode'))
 <div class="alert alert-info">
@@ -29,6 +28,12 @@
             </ul>
         </div>
     @endif
+    <div class="row justify-content-center">
+    <div class="col-lg-5">
+    <div class="card login-card py-5">
+    <div class="card-body">
+    <h2 class="title">@lang('eventmie-pro::em.login')</h2>
+
     <form method="POST" action="{{ route('eventmie.login_post') }}">
         
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -82,5 +87,10 @@
         
     </form>
 </div>    
+</div>    
+</div>    
+</div>    
+</div>    
+ 
 
 @endsection

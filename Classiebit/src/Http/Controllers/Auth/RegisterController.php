@@ -1,10 +1,15 @@
 <?php
 
 namespace Classiebit\Eventmie\Http\Controllers\Auth;
+
 use Facades\Classiebit\Eventmie\Eventmie;
 
 use App\Http\Controllers\Controller;
+use Classiebit\Eventmie\Models\Country;
 use Classiebit\Eventmie\Models\Customer;
+use Classiebit\Eventmie\Models\IdentityType;
+use Classiebit\Eventmie\Models\LicenseLevel;
+use Classiebit\Eventmie\Models\RelativeType;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -45,7 +50,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-         // language change
+        // language change
         $this->middleware('common');
         $this->middleware('guest');
         $this->middleware('guest:customer');
@@ -59,10 +64,14 @@ class RegisterController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function showRegistrationForm()
-    {   
-        \Session::put('url.intended',\URL::previous());
-
-        return Eventmie::view('eventmie::auth.register');
+    {
+        \Session::put('url.intended', \URL::previous());
+        $data['countries'] = Country::all();
+        $data['identity_types'] = IdentityType::all();
+        $data['relative_types'] = RelativeType::all();
+        $data['license_levels'] = LicenseLevel::all();
+        
+        return Eventmie::view('eventmie::auth.register', $data);
     }
 
     /**
@@ -73,23 +82,23 @@ class RegisterController extends Controller
      */
     public function register(Request $request)
     {
-        
+
         $this->validator($request->all())->validate();
 
         event(new Registered($user = $this->create($request->all())));
 
-        
+
         $this->guard()->login($user);
 
-        
+
         if ($response = $this->registered($request, $user)) {
-            
+
             return $response;
         }
 
         return $request->wantsJson()
-                    ? new JsonResponse([], 201)
-                    : redirect(\URL::previous());
+            ? new JsonResponse([], 201)
+            : redirect(\URL::previous());
     }
 
 
@@ -104,6 +113,20 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:customers'],
+            'nationality' => ['required', 'max:255'],
+            'birth_date' => ['required', 'date'],
+            'identity_type' => ['required', 'integer'],
+            'identity_no' => ['required', 'string'],
+            'diver_type' => ['required', 'string', 'max:30'],
+            'phone' => ['required', 'string', 'max:30'],
+            'other_phone' => [ 'string', 'max:30'],
+            'relative_relation' => [ 'integer'],
+            'relative_name' => [ 'string', 'max:255'],
+            'blood_type' => [ 'integer', 'max:8'],
+            'address' => [ 'string', 'max:255'],
+            'diving_license_level' => [ 'integer'],
+            'license_no' => [ 'string'],
+            'diving_license_date' => ['required', 'date'],
             'password' => ['required', 'string', 'min:8'],
             'accept' => ['required'],
         ]);
@@ -118,15 +141,29 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $user   = Customer::create([
-                    'name'      => $data['name'],
-                    'email'     => $data['email'],
-                    'password'  => Hash::make($data['password']),
-                    'role_id'  => 2,
-                ]);
+            'name'      => $data['name'],
+            'email'     => $data['email'],
+            'password'  => Hash::make($data['password']),
+            'nationality' => $data['nationality'],
+            'birth_date' => $data['birth_date'],
+            'identity_type' => $data['identity_type'],
+            'identity_no' =>$data['identity_no'],
+            'diver_type' => $data['diver_type'],
+            'phone' => $data['phone'],
+            'other_phone' =>$data['other_phone'],
+            'relative_relation' => $data['relative_relation'],
+            'relative_name' => $data['relative_name'],
+            'blood_type' => $data['blood_type'],
+            'address' => $data['address'],
+            'diving_license_level' =>$data['diving_license_level'],
+            'license_no' => $data['license_no'],
+            'diving_license_date' => $data['diving_license_date'],
+        
+            'role_id'  => 2,
+        ]);
 
         // Send welcome email
-        if(!empty($user->id))
-        {
+        if (!empty($user->id)) {
             // ====================== Notification ====================== 
             $mail['mail_subject']   = __('eventmie-pro::em.register_success');
             $mail['mail_message']   = __('eventmie-pro::em.get_tickets');
@@ -139,22 +176,19 @@ class RegisterController extends Controller
                 1, // admin
                 $user->id, // new registered user
             ];
-            
+
             $users = Customer::whereIn('id', $notification_ids)->get();
-            if(checkMailCreds()) 
-            {
+            if (checkMailCreds()) {
                 try {
                     \Notification::locale(\App::getLocale())->send($users, new MailNotification($mail));
-                } catch (\Throwable $th) {}
+                } catch (\Throwable $th) {
+                }
             }
             // ====================== Notification ======================     
         }
-        
-        $this->redirectTo = \Session::get('url.intended'); 
-        
+
+        $this->redirectTo = \Session::get('url.intended');
+
         return $user;
     }
-
-    
-    
 }

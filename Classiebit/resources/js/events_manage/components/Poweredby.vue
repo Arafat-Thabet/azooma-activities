@@ -7,59 +7,8 @@
                     <form ref="form" @submit.prevent="validateForm" method="POST" enctype="multipart/form-data" class="lgx-contactform">
                         <!-- add tags directly from this page -->
 
-                        <div>
-                            <label>{{ trans('em.event_tags') }} ({{ trans('em.optional') }})
-
-                            </label>
-                            <multiselect
-                            v-model="tmp_tags_ids"
-                            :options="tags_options" 
-                            id="ajax"
-                            label="text"
-                            track-by="value"
-                            :placeholder="'-- '+trans('em.search_tags')+' --'" 
-                            open-direction="bottom"
-                            :multiple="true"
-                            :searchable="true"
-                            :loading="isLoading"
-                            :internal-search="false"
-                            :clear-on-select="true"
-                            :close-on-select="false"
-                            :options-limit="300"
-                            :limit="20"
-                            :limit-text="limitText"
-                            :max-height="300"
-                            :show-no-results="false"
-                            :hide-selected="false"
-                            @search-change="searchTags"
-                            :allow-empty="true"
-                            :class="'form-control'"
-                            :preserve-search="true" 
-                            :preselect-first="false"
-                            @select="isDirty()"
-                            >
-                            <template slot="tag" slot-scope="{ option, remove }">
-                                <span class="multiselect__tag" @click="remove(option)">
-                                <span >{{ option.text }}</span>
-                                    <i aria-hidden="true" tabindex="1" class="multiselect__tag-icon">
-                                    </i>
-                                </span>
-                            </template>
-                            <template slot="clear" slot-scope="props">
-                                <div
-                                class="multiselect__clear"
-                                v-if="tmp_tags_ids.length"
-                                @mousedown.prevent.stop="clearAll(props.search)"
-                                ></div>
-                            </template>
-                            <span slot="noResult"> {{ trans('em.tags_not_found') }}</span>
-                            </multiselect>
-                            
-                        </div>
-                        <tag-component :organiser_id="organiser_id"></tag-component>
-
                         
-                        <button type="submit" class="btn lgx-btn btn-block mt-5"><i class="fas fa-sd-card"></i> {{ trans('em.save') }}</button>
+                  
                         <button type="button" class="btn lgx-btn btn-block"
                             :disabled="(Object.keys(this.is_publishable).length < 5 && event.publish == 0) ? true : false" 
                             :class="{ 'lgx-btn-danger': (event.publish == 1), 'lgx-btn-success': (event.publish != 1) }"

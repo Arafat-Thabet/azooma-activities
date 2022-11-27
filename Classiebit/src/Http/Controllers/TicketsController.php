@@ -35,6 +35,7 @@ class TicketsController extends Controller
         $this->middleware('common');
     
         $this->middleware('auth:admin');
+        //$this->middleware('auth:admin');
 
         $this->event    = new Event;
 

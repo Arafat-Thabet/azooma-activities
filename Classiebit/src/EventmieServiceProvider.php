@@ -29,6 +29,7 @@ use Spatie\Honeypot\HoneypotServiceProvider as HoneypotServiceProvider;
 /* Console commands */
 use  Classiebit\Eventmie\Commands\InstallCommand;
 use  Classiebit\Eventmie\Commands\UpdateCommand;
+use  Classiebit\Eventmie\Commands\UpdateassetsCommand;
 use  Classiebit\Eventmie\Commands\ControllersCommand;
 use  Classiebit\Eventmie\Commands\DataRowsSeedCommand;
 use  Classiebit\Eventmie\Commands\MenuItemsSeedCommand;
@@ -268,6 +269,7 @@ class EventmieServiceProvider extends ServiceProvider
     {
         $this->commands(Commands\InstallCommand::class);
         $this->commands(Commands\UpdateCommand::class);
+        $this->commands(Commands\UpdateassetsCommand::class);
         $this->commands(Commands\ControllersCommand::class);
         
         $this->commands(Commands\DataRowsSeedCommand::class);

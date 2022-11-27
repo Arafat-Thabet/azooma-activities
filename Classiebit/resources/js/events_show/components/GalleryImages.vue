@@ -1,7 +1,7 @@
 <template>
 <div>
     <gallery :images="images" :index="index" @close="index = null"></gallery>
-    <div class="row">
+    <div class="row justify-content-center">
         <div class="col-md-3" v-for="(image, imageIndex) in images" :key="imageIndex">
             <div class="lgx-gallery-single-slider"
                 @click="index = imageIndex"
