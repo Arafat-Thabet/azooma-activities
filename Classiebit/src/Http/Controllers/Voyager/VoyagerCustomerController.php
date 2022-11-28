@@ -31,7 +31,7 @@ class VoyagerCustomerController extends BaseVoyagerUserController
 {
     public function index(Request $request)
     {
-        return (new  BaseController())->index($request);
+        return (new  BaseController())->custom_index($request,['sortable'=>false]);
     }
 
     public function show(Request $request, $id)
