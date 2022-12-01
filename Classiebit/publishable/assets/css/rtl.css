@@ -183,3 +183,23 @@ text-align: start;
 .js-datepicker{width: 120px !important; display: inline !important;}
 .js-datepicker-label{display: inline !important;}
 .text-end{text-align: end;}
+
+.bread-td-actions a{
+    background: unset !important;
+    padding: 0 !important;
+    margin: unset !important;
+    box-shadow: unset !important;
+}
+.bread-td-actions a.delete{
+    color: #dc0e0eb8 !important;
+}
+.bread-td-actions a.edit{
+    color: #22a7f0 !important;
+}
+.bread-td-actions a.view{
+    color: #f39c12 !important;
+}
+.bread-td-actions a i{
+    font-size: 18px !important;
+    margin: 5px !important;
+}

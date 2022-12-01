@@ -75,9 +75,21 @@
     "Register":"تسجيل",
     "General Infomation":"معلومات اساسية",
     "Optional Infomation":"معلومات اضافية",
-    "Update":"تحديث"
-
-    
-
-
+    "Update":"تحديث",
+    "submit":"حفظ",
+    "Site":"الموقع",
+    "Currency":"العملة",
+    "Events":"الاحداث",
+    "Quantity":"الكمية",
+    "Commissions":"العمولات",
+    "Customer Email":"ايميل العميل",
+    "Booking Cancel":"حجز ملغي",
+    "Checked In":"Checked In",
+    "Payment Type":"نوع الدفع",
+    "Is Paid":"تم الدفع",
+    "Ticket Title":"عنوان التذكرة",
+    "Order Number":"رقم الطلب",
+    "Bookings":"الحجز",
+    "Event Title":"عنوان الحجز",
+    "Net Price":"صافي السعر"
     } 

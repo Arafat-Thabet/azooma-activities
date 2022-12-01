@@ -73,7 +73,7 @@
                                     <div class="input-group col-md-12">
                                         <input type="text" class="form-control" placeholder="{{ __('voyager::generic.search') }}" name="s" value="{{ $search->value }}">
                                         <span class="input-group-btn">
-                                            <button class="btn btn-info btn-lg" type="submit">
+                                            <button class="btn btn-info btn-lg" type="submit" style="    height: 40px; padding: 0 10px;top: -1px;border-radius: 8px 0 0 5px !important;">
                                                 <i class="voyager-search"></i>
                                             </button>
                                         </span>
