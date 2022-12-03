@@ -54,7 +54,7 @@ class ProfileController extends Controller
 
         $this->validate($request, [
             'name' => 'required|string',
-            'email' => 'required|email|unique:users,email,' . Auth::id(),
+            'email' => 'required|email|unique:users,email,' . this_user(),
             'nationality' => ['required', 'max:255'],
             'birth_date' => ['required', 'date'],
             'identity_type' => ['required', 'integer'],
@@ -73,7 +73,7 @@ class ProfileController extends Controller
 
    
 
-        $user = Customer::find(Auth::id());
+        $user = Customer::find(this_user());
 
         $user->name                  = $request->name;
         $user->email                 = $request->email;
@@ -120,7 +120,7 @@ class ProfileController extends Controller
             'password_confirmation' => 'required'
         ]);
 
-        $user = Customer::find(Auth::id());
+        $user = Customer::find(this_user());
 
         if (!Hash::check($request->current, $user->password)) {
             return error_redirect( __('eventmie-pro::em.current_password_not_match'));
@@ -143,7 +143,7 @@ class ProfileController extends Controller
         $manually_approve_organizer = (int)setting('multi-vendor.manually_approve_organizer');
 
 
-        $user = Customer::find(Auth::id());
+        $user = Customer::find(this_user());
 
         // manually aporove organizer setting on then don't change role
         if (empty($manually_approve_organizer)) {

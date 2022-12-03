@@ -5,7 +5,7 @@
 @section('page_header')
     <div class="container-fluid">
         <h1 class="page-title">
-            <i class="{{ $dataType->icon }}"></i> {{ $dataType->getTranslatedAttribute('display_name_plural') }}
+            <i class="{{ $dataType->icon }}"></i> {{ __($dataType->getTranslatedAttribute('display_name_plural')) }}
         </h1>
         
         @include('voyager::multilingual.language-selector')
@@ -25,7 +25,7 @@
                                     <div class="col-2">
                                         <select id="search_key" name="key">
                                             @foreach($searchNames as $key => $name)
-                                                <option value="{{ $key }}" @if($search->key == $key || (empty($search->key) && $key == $defaultSearchKey)){{ 'selected' }}@endif>{{ $name }}</option>
+                                                <option value="{{ $key }}" @if($search->key == $key || (empty($search->key) && $key == $defaultSearchKey)){{ 'selected' }}@endif>{{ __($name) }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -64,7 +64,7 @@
                                             @if ($isServerSide)
                                                 <a href="{{ $row->sortByUrl($orderBy, $sortOrder) }}">
                                             @endif
-                                            {{ $row->getTranslatedAttribute('display_name') }}
+                                            {{ __($row->getTranslatedAttribute('display_name')) }}
                                             @if ($isServerSide)
                                                 @if ($row->isCurrentSortField($orderBy))
                                                     @if ($sortOrder == 'asc')
@@ -78,7 +78,7 @@
                                         </th>
                                         @endforeach
                                         <th> {{ __('eventmie-pro::em.expired') }} </th>
-                                        <th class="actions text-right">{{ __('voyager::generic.actions') }}</th>
+                                        <th class="actions text-right"  style="max-width:250px;min-width: 150px;" >{{ __('voyager::generic.actions') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -282,23 +282,23 @@
                                         
                                         </td>
                                        
-                                        <td class="no-sort no-click" id="bread-actions">
+                                        <td class="no-sort no-click bread-actions  bread-td-actions" id="bread-actions">
 
                                             {{-- delete event from frontend --}}
-                                            <a href="javascript:;" title="{{ __('voyager::generic.delete') }}" class="btn btn-sm btn-danger delete pull-right" onclick='openDeleteModal("{{ $data->id }}")'>
-                                                <i class="voyager-trash"></i> <span class="hidden-xs hidden-sm">{{ __('voyager::generic.delete') }}</span>
+                                            <a href="javascript:;" title="{{ __('voyager::generic.delete') }}" class="btn btn-sm btn-danger delete pull-right m-0" onclick='openDeleteModal("{{ $data->id }}")'>
+                                                <i class="voyager-trash"></i> <span class="hidden-xs hidden-sm"></span>
                                             </a>
 
                                             <a href="{{ route('voyager.bookings.edit',[$data->id])}}" class="btn btn-sm btn-info edit pull-right">
-                                                <i class="voyager-edit"></i> <span class="hidden-xs hidden-sm">{{ __('voyager::generic.edit') }}</span>
+                                                <i class="voyager-edit"></i> <span class="hidden-xs hidden-sm"></span>
                                             </a>
 
-                                            <a href="{{ route('eventmie.obookings_organiser_bookings_show',[$data->id])}}" class="btn btn-sm btn-warning view pull-right">
-                                                <i class="voyager-eye"></i> <span class="hidden-xs hidden-sm">{{ __('voyager::generic.view') }}</span>
+                                            <a href="{{ route('eventmie.obookings_organiser_bookings_show',[$data->id])}}" title="{{ __('voyager::generic.view') }}" class="btn btn-sm btn-warning view pull-right">
+                                                <i class="voyager-eye"></i> <span class="hidden-xs hidden-sm"></span>
                                             </a>
 
-                                            <a href="{{ route('eventmie.downloads_index',[$data->id, $data->order_number])}}" class="btn btn-sm btn-success download pull-right">
-                                                <i class="voyager-download"></i> <span class="hidden-xs hidden-sm">{{ __('voyager::generic.download') }}</span>
+                                            <a title="{{ __('voyager::generic.download') }}" href="{{ route('eventmie.downloads_index',[$data->id, $data->order_number])}}" class="btn btn-sm btn-success download pull-right">
+                                                <i class="voyager-download"></i> <span class="hidden-xs hidden-sm"></span>
                                             </a>
 
                                             {{-- Single delete modal --}}
@@ -307,7 +307,7 @@
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <button type="button" class="close" data-dismiss="modal" aria-label="{{ __('voyager::generic.close') }}"><span aria-hidden="true">&times;</span></button>
-                                                            <h4 class="modal-title"><i class="voyager-trash"></i> {{ __('voyager::generic.delete_question') }} {{ strtolower($dataType->display_name_singular) }}?</h4>
+                                                            <h4 class="modal-title"><i class="voyager-trash"></i> {{ __('voyager::generic.delete_question') }} {{ strtolower(__($dataType->display_name_singular)) }}?</h4>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <form action="{{ route('eventmie.obookings_organiser_booking_delete',[$data->id]) }}" id="delete_form" method="GET">

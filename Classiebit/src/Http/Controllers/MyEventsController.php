@@ -100,7 +100,7 @@ class MyEventsController extends Controller
         }
 
         $params   = [
-            'organiser_id' => Auth::id(),
+            'organiser_id' => userInfo()->id,
         ];
 
         $myevents    = $this->event->get_my_events($params);
@@ -123,7 +123,7 @@ class MyEventsController extends Controller
         }
 
         $params   = [
-            'organiser_id' => Auth::id(),
+            'organiser_id' =>  userInfo()->id,
         ];
 
         $myevents    = $this->event->get_all_myevents($params);
@@ -142,11 +142,11 @@ class MyEventsController extends Controller
     protected function is_admin(Request $request)
     {
         // if login user is Organiser then 
-        // organiser id = Auth::id();
+        // organiser id =  userInfo()->id;
         $this->organiser_id =userInfo()->id;
 
         // if admin is creating event
-        // then user Auth::id() as $organiser_id
+        // then user  userInfo()->id as $organiser_id
         // and organiser id will be the id selected from Vue dropdown
         if (checkUserRole('admin')) {
             $request->validate([
@@ -175,7 +175,7 @@ class MyEventsController extends Controller
             $event  = $this->event->get_event($slug);
             $event  = $event->makeVisible('online_location');
             // user can't edit other user event but only admin can edit event's other users
-            if (!Auth::guard('admin')->user() && Auth::id() != $event->user_id)
+            if (!Auth::guard('admin')->user() &&  userInfo()->id != $event->user_id)
                 return redirect()->route('eventmie.events_index');
         }
 

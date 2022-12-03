@@ -214,7 +214,7 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="lgx-heading lgx-heading-white">
-                            <h2 class="heading">@lang('eventmie-pro::em.event_gallery')</h2>
+                            <h2 class="heading d-none">@lang('eventmie-pro::em.event_gallery')</h2>
                         </div>
                     </div>
                 </div>

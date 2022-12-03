@@ -28,7 +28,7 @@ class BookingsController extends Controller
     {
         // language change
         $this->middleware('common');
-    
+
         // authenticate except 
         $this->middleware('auth')->except(['login_first', 'signup_first']);
 
@@ -68,11 +68,11 @@ class BookingsController extends Controller
             $this->organiser_id = $event->user_id;
             
             // if login user is customer then 
-            // customer id = Auth::id();
-            $this->customer_id = Auth::id();
+            // customer id = this_user();
+            $this->customer_id = this_user();
 
             // if admin and organiser is creating booking
-            // then user Auth::id() as $customer_id
+            // then user this_user() as $customer_id
             // and customer id will be the id selected from Vue dropdown
             if(checkUserRole('admin') || checkUserRole('organiser') )
             {
@@ -159,7 +159,6 @@ class BookingsController extends Controller
     // validate user post data
     protected function general_validation(Request $request)
     {
-        
         $request->validate([
             'event_id'          => 'required|numeric|gte:1',
             
@@ -170,9 +169,9 @@ class BookingsController extends Controller
             'quantity.*'        => [ 'required', 'numeric', 'integer', 'gte:0'],
 
             // repetitve booking date validation
-            'booking_date'      => 'date_format:Y-m-d|required',
-            'start_time'        => 'date_format:H:i:s|required',
-            'end_time'          => 'date_format:H:i:s|required',
+          //  'booking_date'      => 'date_format:Y-m-d|required',
+            //'start_time'        => 'date_format:H:i:s|required',
+            //'end_time'          => 'date_format:H:i:s|required',
         ]);
 
         
@@ -186,7 +185,8 @@ class BookingsController extends Controller
         
         // get event by event_id
         $event          = $this->event->get_event(null, $request->event_id);
-        
+        $this->organiser_id = $event->user_id;
+
         // if event not found then access denied
         if(empty($event))
             return ['status' => false, 'error' =>  __('eventmie-pro::em.event').' '.__('eventmie-pro::em.not_found')];
@@ -228,9 +228,9 @@ class BookingsController extends Controller
             'tickets'           => $tickets,
             'ticket_ids'        => $ticket_ids,
             'event'             => $event,
-            'booking_date'      => $request->booking_date,
-            'start_time'        => $request->start_time,
-            'end_time'          => $request->end_time,
+            'booking_date'      => $event->booking_date,
+            'start_time'        => $event->start_time,
+            'end_time'          => $event->end_time,
         ];
 
     }
@@ -284,14 +284,14 @@ class BookingsController extends Controller
         $status = $this->is_admin_organiser($request);
 
         // organiser can't book other organiser event's tikcets but  admin can book any organiser events'tikcets for customer
-        if(!$status)
+       /* if(!$status)
         {
             return response([
                 'status'    => false,
                 'url'       => route('eventmie.events_index'),
                 'message'   => __('eventmie-pro::em.organiser_note_5'),
             ], Response::HTTP_OK);
-        }
+        }*/
 
         // 1. General validation and get selected ticket and event id
         $data = $this->general_validation($request);
@@ -316,8 +316,9 @@ class BookingsController extends Controller
         $booking_date = $request->booking_date;
 
         $params  = [
-            'customer_id' => $this->customer_id,
+            'customer_id' => this_user(),
         ];
+        $this->customer_id= this_user();
         // get customer information by customer id    
         $customer   = $this->user->get_customer($params);
 
@@ -461,7 +462,7 @@ class BookingsController extends Controller
             
             if(checkUserRole('admin'))
                 $url = route('voyager.bookings.index');
-
+           // dd($url);
             return response([
                 'status'    => true,
                 'url'       => $url,

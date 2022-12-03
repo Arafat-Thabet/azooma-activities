@@ -221,11 +221,11 @@ class VenueController extends Controller
     protected function is_admin(Request $request)
     {
         // if login user is Organiser then 
-        // organiser id = Auth::id();
-        $this->organiser_id = Auth::id();
+        // organiser id = this_user();
+        $this->organiser_id = this_user();
 
         // if admin is creating event
-        // then user Auth::id() as $organiser_id
+        // then user this_user() as $organiser_id
         // and organiser id will be the id selected from Vue dropdown
         if(checkUserRole('admin'))
         {

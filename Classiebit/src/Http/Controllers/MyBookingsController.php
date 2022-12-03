@@ -70,7 +70,7 @@ class MyBookingsController extends Controller
     public function mybookings(Request $request)
     {
         $params     = [
-            'customer_id'  => Auth::id(),
+            'customer_id'  => this_user(),
         ];
 
         $bookings    = $this->booking->get_my_bookings($params);
@@ -99,7 +99,7 @@ class MyBookingsController extends Controller
             'event_id'    => $request->event_id,
             'ticket_id'   => $request->ticket_id,
             'booking_id'  => $request->booking_id,
-            'customer_id' => Auth::id(),
+            'customer_id' => this_user(),
         ];
 
         // get event by event_id
@@ -166,7 +166,7 @@ class MyBookingsController extends Controller
         $mail['action_url']     = route('eventmie.mybookings_index');
         $mail['n_type']       =  "cancel";
 
-        $notification_ids       = [1, Auth::id(), $check_booking->organiser_id];
+        $notification_ids       = [1, this_user(), $check_booking->organiser_id];
         
         $users = User::whereIn('id', $notification_ids)->get();
         try {

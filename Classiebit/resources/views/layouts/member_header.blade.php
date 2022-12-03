@@ -78,9 +78,9 @@
         <li>
             <a class="dropdown-item" href="{{ eventmie_url().'/'.config('eventmie.route.admin_prefix') }}"><i class="fas fa-tachometer-alt"></i> @lang('eventmie-pro::em.dashboard')</a>
         </li>
-        <li>
-            <a class="dropdown-item" href="{{ route('eventmie.organizer_dashboard') }}"><i class="fas fa-tachometer-alt"></i> @lang('eventmie-pro::em.dashboard')</a>
-        </li>
+       <!-- <li>
+            <a class="dropdown-item d-none" href="{{ route('eventmie.organizer_dashboard') }}"><i class="fas fa-tachometer-alt"></i> @lang('eventmie-pro::em.dashboard')</a>
+        </li>-->    
         <li>
             <a class="dropdown-item" href="{{ route('eventmie.myevents_form') }}"><i class="fas fa-calendar-plus"></i> @lang('eventmie-pro::em.create_event')</a>
         </li>
@@ -90,12 +90,10 @@
         <li>
             <a class="dropdown-item" href="{{ route('eventmie.obookings_index') }}"><i class="fas fa-money-check-alt"></i> @lang('eventmie-pro::em.manage_bookings')</a>
         </li>
-        <li>
+        <!--<li>
             <a class="dropdown-item" href="{{ route('eventmie.event_earning_index') }}"><i class="fas fa-wallet"></i> @lang('eventmie-pro::em.manage_earning')</a>
-        </li>
-        <li>
-            <a class="dropdown-item" href="{{ route('eventmie.tags_form') }}"><i class="fas fa-user-tag"></i> @lang('eventmie-pro::em.manage_tags')</a>
-        </li>
+        </li>-->
+      
    
         @endif
 

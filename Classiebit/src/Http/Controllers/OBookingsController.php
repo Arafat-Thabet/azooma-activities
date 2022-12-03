@@ -215,7 +215,7 @@ class OBookingsController extends Controller
     {
         
         $id    = (int) $id;
-        $organiser_id  = Auth::id(); 
+        $organiser_id  = userInfo()->id; 
 
         if(!$id)
               // redirect no matter what so that it never turns back

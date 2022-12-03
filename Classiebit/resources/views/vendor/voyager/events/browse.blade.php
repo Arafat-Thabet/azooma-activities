@@ -238,27 +238,27 @@
                                                 @endif
                                             </td>
                                         @endforeach
-                                        <td class="no-sort no-click" id="bread-actions">
+                                        <td class="no-sort no-click bread-actions bread--td-actions" id="bread-actions">
                                             {{-- delete event from frontend --}}
-                                            <a href="javascript:;" title="Delete" class="btn btn-sm btn-danger delete pull-right" onclick='openDeleteModal("{{ $data->id }}")'>
-                                                <i class="voyager-trash"></i> <span class="hidden-xs hidden-sm">{{ __('voyager::generic.delete') }}</span>
+                                            <a href="javascript:;" title="{{ __('voyager::generic.delete') }}" class="btn btn-sm btn-danger delete pull-right" onclick='openDeleteModal("{{ $data->id }}")'>
+                                                <i class="voyager-trash"></i> <span class="hidden-xs hidden-sm"></span>
                                             </a>
                                             {{-- Single delete modal --}}
 
-                                            <a href="{{ route('eventmie.myevents_form',[$data->slug])}}" class="btn btn-sm btn-primary edit pull-right">
-                                                <i class="voyager-edit"></i> <span class="hidden-xs hidden-sm">{{ __('voyager::generic.edit') }}</span>
+                                            <a title="{{ __('voyager::generic.edit') }}" href="{{ route('eventmie.myevents_form',[$data->slug])}}" class="btn btn-sm btn-primary edit pull-right">
+                                                <i class="voyager-edit"></i> <span class="hidden-xs hidden-sm"></span>
                                             </a>
 
                                             @if($data->publish > 0)
-                                            <a href="{{ route('eventmie.events_show', [$data->slug]) }}" class="btn btn-sm btn-warning pull-right">
-                                                <i class="voyager-eye"></i> <span class="hidden-xs hidden-sm">{{ __('voyager::generic.view') }}</span>
+                                            <a title="{{ __('voyager::generic.view') }}" href="{{ route('eventmie.events_show', [$data->slug]) }}" class="btn btn-sm btn-warning pull-right">
+                                                <i class="voyager-eye"></i> <span class="hidden-xs hidden-sm"></span>
                                             </a>
                                             @endif 
                                             @php
                                                $count_bookings = \Classiebit\Eventmie\Models\Booking::where(['event_id' => $data->id])->count()    
                                             @endphp
 
-                                            <a class="btn btn-sm btn-success pull-right {{ $count_bookings <= 0 ? 'disabled' : '' }}" class="btn lgx-btn lgx-btn-black lgx-btn-sm btn-block" href="{{route('eventmie.export_attendees',[$data->slug])}}"><i class="voyager-receipt"></i> {{ __('voyager::generic.export_attendees') }} ({{ $count_bookings }})</a>
+                                         
                                             
                                             <div class="modal modal-danger fade" tabindex="-1" id="delete_modal{{ $data->id }}" role="dialog">
                                                 <div class="modal-dialog">

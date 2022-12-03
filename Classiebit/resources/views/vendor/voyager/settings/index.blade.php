@@ -231,16 +231,24 @@
             {{ csrf_field() }}
             <input type="hidden" name="setting_tab" class="setting_tab" value="{{ $active }}" />
             <div class="panel">
-
+            @if (!config('voyager.pkg_dev_mode')) 
+                    <?php 
+                    $dev_settings=['Multi-vendor','Booking'];
+                    foreach($settings as $group => $setting){
+                    if(in_array($group,$dev_settings))
+                    unset($settings[$group]);
+                    }
+                    ?>
+                    @endif
                 <div class="page-content settings container-fluid">
                     <ul class="nav nav-tabs">
                         @foreach($settings as $group => $setting)
                             <li @if($group == $active) class="active" @endif>
-                                <a data-toggle="tab" href="#{{ \Illuminate\Support\Str::slug($group) }}">{{ $group }}</a>
+                                <a data-toggle="tab" href="#{{ \Illuminate\Support\Str::slug($group) }}">{{ __($group) }}</a>
                             </li>
                         @endforeach
                     </ul>
-
+                  
                     <div class="tab-content">
                         @foreach($settings as $group => $group_settings)
                         <div id="{{ \Illuminate\Support\Str::slug($group) }}" class="tab-pane fade in @if($group == $active) active @endif">
@@ -252,7 +260,7 @@
                                 {{ __('voyager::generic.Set Callback URL on your Google App Dashboard') }} - <code>{{ route('eventmie.oauth_callback', ['social' => 'google']) }}</code>
                             </div>
                             @endif
-
+                            @if (!config('voyager.pkg_dev_mode')) 
                             {{-- Info for Facebook Callback --}}
                             @if($setting->key == 'apps.facebook_app_id')
                             <br>
@@ -260,7 +268,7 @@
                                 {{ __('voyager::generic.Set Callback URL on your Facebook App Dashboard') }} - <code>{{ route('eventmie.oauth_callback', ['social' => 'facebook']) }}</code>
                             </div>
                             @endif
-
+                            @endif
                             {{-- Info for PayPal Callback --}}
                             @if($setting->key == 'apps.paypal_client_id')
                             <br>
@@ -271,7 +279,7 @@
 
                             <div class="panel-heading">
                                 <h3 class="panel-title">
-                                    {{ $setting->display_name }} @if(config('voyager.show_dev_tips'))<code>setting('{{ $setting->key }}')</code>@endif
+                                    {{ __($setting->display_name) }} @if(config('voyager.show_dev_tips'))<code>setting('{{ $setting->key }}')</code>@endif
                                 </h3>
 
                                 @if (config('voyager.pkg_dev_mode')) 

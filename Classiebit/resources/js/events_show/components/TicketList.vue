@@ -55,35 +55,28 @@
                                     <li class="list-group-item d-flex justify-content-between lh-condensed d-flex-wrap">
                                         
                                         <div>
-                                            <h6 class="my-0"><strong>{{ trans('em.event_category') }}</strong></h6>
+                                   
                                             <p class="mb-2">{{ event.title }} <small>({{ event.category_name }})</small></p>
                                         
-                                            <div>
+                                            <div v-if="event.venue">
                                                 <p><small><strong>{{ trans('em.venue') }} </strong></small></p>
                                                 <p>
                                                     <small class="text-muted">{{ event.venue }}</small>
-                                                    <small class="text-muted" v-if="event.online_location">( {{ trans('em.online') }} )</small>
+                                                
                                                 </p>
                                             </div>
                                         </div>
 
                                         <div>
-                                            <h6 class="my-0"><strong>{{ trans('em.start') }} - {{ trans('em.end') }} {{ trans('em.date') }}</strong></h6>
-                                            <p class="mb-2" v-if="event.repetitive > 0">
-                                                {{ booking_date }} <small><strong>-</strong></small> <br>
-                                                {{ booking_end_date != null ? booking_end_date : booking_date  }}
+                                            <h6 class="my-0"><strong> {{ trans('em.date') }}</strong></h6>
+                                            <p class="mb-2" >
+                                               {{current_date}}
                                             </p>
-                                            <p class="mb-2" v-else>
-                                                {{ changeDateFormat(moment(userTimezone(event.start_date+' '+event.start_time, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD'))) }} <small><strong>-</strong></small> <br>
-                                                {{ changeDateFormat(moment(userTimezone(event.end_date+' '+event.end_time,  'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD'))) }} 
-                                            </p>
+                                      
                                         
                                             <div>
-                                                <p><small><strong>{{ trans('em.timings') }}</strong></small></p>
-                                                <p v-if="event.repetitive > 0"><small class="text-muted">{{ start_time }} - {{ end_time }} {{ '('+ showTimezone() +')'  }}</small></p>
-                                                <p v-else>
-                                                    <small class="text-muted">{{ changeTimeFormat(start_time) }} - {{ changeTimeFormat(end_time) }} {{ '('+ showTimezone() +')'  }}</small>
-                                                </p>
+                                              
+                                            
                                             </div>
                                         </div>
                                         
@@ -321,7 +314,8 @@ export default {
             customer_id         : 0,
             total               : 0,   
             disable             : false,
-            payment_method      : 'offline',   
+            payment_method      : 'offline',
+            current_date :moment().format('YYYY/MM/DD'),   
             
             // customers options
             options             : [],

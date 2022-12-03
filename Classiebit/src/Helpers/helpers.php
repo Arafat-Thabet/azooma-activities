@@ -155,8 +155,7 @@ if (!function_exists('notifications')) {
             ->get();
 
         $notifications  = to_array($notifications);
-
-        return  ['notifications' => $notifications, 'total_notify' => $user->unreadNotifications->count()];
+        return  ['notifications' => $notifications, 'total_notify' => count($notifications)];
     }
 }
 if (!function_exists('checkUserRole')) {
@@ -164,7 +163,7 @@ if (!function_exists('checkUserRole')) {
     {
         if (Auth::guard('admin')->check())
             return Auth::guard('admin')->user()->hasRole($role_name);
-            return Auth::guard('customer')->user();
+            return $role_name=="customer"?true:false;
     }
 }
 if (!function_exists('userInfo')) {
@@ -173,6 +172,12 @@ if (!function_exists('userInfo')) {
         if (Auth::guard('admin')->check())
             return Auth::guard('admin')->user();
             return Auth::user();
+    }
+}
+if (!function_exists('this_user')) {
+    function this_user()
+    {
+      return  userInfo()->id??0;
     }
 }
 

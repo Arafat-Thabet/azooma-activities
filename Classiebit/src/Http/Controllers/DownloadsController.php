@@ -26,10 +26,10 @@ class DownloadsController extends Controller
     public function __construct()
     {
         // language change
-        $this->middleware('common');
+       // $this->middleware('common');
 
         // download only after login
-        $this->middleware('auth');
+        $this->middleware('admin');
     
         $this->event        = new Event;
         $this->ticket       = new Ticket;
@@ -60,12 +60,12 @@ class DownloadsController extends Controller
 
         // customer can see only their bookings
         if(checkUserRole('customer'))
-            if($booking['customer_id'] != Auth::id())
+            if($booking['customer_id'] !=userInfo()->id)
                 abort('404');
 
         // organiser can see only their events bookings
         if(checkUserRole('organiser'))
-            if($booking['organiser_id'] != Auth::id())
+            if($booking['organiser_id'] !=userInfo()->id)
                 abort('404');
         
         // generate QrCode

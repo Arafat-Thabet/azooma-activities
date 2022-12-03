@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notification;
 use Classiebit\Eventmie\Notifications\CustomDb;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-
+use Illuminate\Support\Facades\Auth;
 
 class MailNotification extends Notification implements ShouldQueue
 {
@@ -67,9 +67,16 @@ class MailNotification extends Notification implements ShouldQueue
      */
     public function toDatabase($notifiable)
     {
+        $user_type = 'customer';
+        if (Auth::guard('admin')->check())
+            $user_type = "admin";
+        elseif (Auth::guard('customer')->check())
+            $user_type = "customer";
         return [
             'notification'  => $this->mail_data,
             'n_type'        => $this->mail_data->n_type,
+            'user_type' => $user_type
+
         ];
         
     }

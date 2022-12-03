@@ -59,7 +59,7 @@ class MyEarningsController extends Controller
     {
         
         $params     = [
-            'organiser_id'  => Auth::id(),
+            'organiser_id'  => userInfo()->id,
             'start_date'    => !empty($request->start_date) ? $request->start_date : null,
             'end_date'      => !empty($request->end_date) ? $request->end_date : null,
             'event_id'      => (int)$request->event_id,
@@ -71,7 +71,7 @@ class MyEarningsController extends Controller
         //     $params['end_date']     = null;
 
         
-        $organiser_earning = $this->commission->show_commission_organisers_wise(Auth::id(), $params);      
+        $organiser_earning = $this->commission->show_commission_organisers_wise(userInfo()->id, $params);      
         
         return response([
             'event_earning'  => $organiser_earning->jsonSerialize(),
@@ -82,7 +82,7 @@ class MyEarningsController extends Controller
     // organiser_total_earning
     public function organiser_total_earning()
     {
-        $total_earning         = $this->commission->organiser_total_earning(Auth::id());
+        $total_earning         = $this->commission->organiser_total_earning(userInfo()->id);
         
         return response([
             'currency'  => setting('regional.currency_default'),

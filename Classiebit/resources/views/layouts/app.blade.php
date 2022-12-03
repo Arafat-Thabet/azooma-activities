@@ -37,6 +37,9 @@
                 'eventmie.password.reset',
                 'eventmie.admin_profile',
                 'eventmie.profile',
+                'eventmie.myevents_index',
+                'eventmie.myevents_form',
+                
                 
             ]    
         @endphp

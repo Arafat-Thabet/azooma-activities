@@ -224,42 +224,7 @@
 <!--Event Top-selling END-->
 
 
-<!--cities_events-->
-@if(!empty($cities_events))
-<section>
-    <div id="lgx-schedule" class="lgx-schedule lgx-schedule-light">
-        <div class="lgx-inner" style="background-image: url({{ eventmie_asset('img/bg-pattern.png') }});">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="lgx-heading">
-                            <h2 class="heading">@lang('eventmie-pro::em.cities_events')</h2>
-                        </div>
-                    </div>
-                </div>
-                <!--//main row-->
-                <div class="row">
-                    <div class="col-12">
-                        <div class="sponsors-area sponsors-area-border sponsors-area-col3">
-                            @foreach($cities_events as $key => $item)
-                            <div class="single">
-                                <a href="{{route('eventmie.events_index', ['search' => urlencode($item->city)])}}">
-                                    <img src="/storage/{{ $item->poster }}" alt="{{ $item->city }}"/>
-                                    <span class="single-name">{{ $item->city }}</span>
-                                </a>
-                            </div>
-                            @endforeach
-                        </div>
-                    </div>
-                    <!--//col-->
-                </div>
-            </div>
-            <!--//container-->
-        </div>
-    </div>
-</section>
-@endif   
-<!--cities_events END-->
+
 
     
 <!--Blogs-->

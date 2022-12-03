@@ -54,7 +54,7 @@ class TicketScanController extends Controller
 
         // so that we can pass organizer other than logged in user
         if(!$organiser_id)
-            $organiser_id = Auth::id();
+            $organiser_id = this_user();
 
         // check for organizer id except for Admin
         if(!checkUserRole('admin'))
