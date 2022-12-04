@@ -203,3 +203,20 @@ text-align: start;
     font-size: 18px !important;
     margin: 5px !important;
 }
+
+@media (min-width: 766px) {
+    .statistics.home-stat {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 10px;
+    }
+    .statistics.home-stat::before{
+        content: unset;
+        
+        }
+}
+@media (max-width: 767px) {
+    .statistics.home-stat div {
+        margin-bottom: 5px;
+    }
+}
