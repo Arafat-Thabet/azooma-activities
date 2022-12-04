@@ -53,9 +53,9 @@
             {{-- Admin Only --}}
             {{-- Stats --}}
             @if(!$isOrgDash)    
-            <div class="row statistics">
+            <div class=" statistics home-stat">
 
-                <div class="col-md-2">
+                <div class="">
                     <div class="box">
                         <i class="voyager-people text-center"></i>
                         <div class="info">
@@ -63,15 +63,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="">
                     <div class="box">
                         <i class="voyager-company text-center"></i>
                         <div class="info">
-                            <h3>{{ $total_organizers }}</h3> <p>{{ __('voyager::generic.Organisers') }}</p>
+                            <h3>{{ $total_organizers }}</h3> <p>{{ __('Organisers') }}</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="">
                     <div class="box">
                         <i class="voyager-calendar text-center"></i>
                         <div class="info">
@@ -79,7 +79,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="">
                     <div class="box">
                         <i class="voyager-ticket text-center"></i>
                         <div class="info">
@@ -87,7 +87,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="">
                     <div class="box">
                         <i class="voyager-dollar text-center"></i>
                         <div class="info">
@@ -177,8 +177,8 @@
                                         <th>{{ __('voyager::generic.Order') }} {{ __('voyager::generic.total') }}</th>
                                         <th>{{ __('voyager::generic.Organiser') }}</th>
                                         <th>{{ __('voyager::generic.Organiser Earning') }}</th>
-                                        <th>{{ __('voyager::generic.Admin Commission') }}</th>
-                                        <th>{{ __('voyager::generic.Admin Tax') }}</th>
+                                        {{-- <th>{{ __('voyager::generic.Admin Commission') }}</th>
+                                        <th>{{ __('voyager::generic.Admin Tax') }}</th> --}}
                                         <th>{{ __('voyager::generic.Payout') }}</th>
                                     </tr>      
                                 </thead>		
@@ -195,8 +195,8 @@
                                         <th></th>
                                         <th></th>
                                         <th></th>
-                                        <th></th>
-                                        <th></th>
+                                        {{-- <th></th>
+                                        <th></th> --}}
                                         <th></th>
                                     </tr>
                                 </tfoot>
@@ -337,12 +337,12 @@ function sales_report(ticket_id = null) {
             { data: 'organiser_earning',         name: 'organiser_earning' , render:function(data, type, row){
                 return row.organiser_earning ? row.organiser_earning : 0+' '+row.currency;
             } },
-            { data: 'admin_commission',         name: 'admin_commission' , render:function(data, type, row){
-                return row.admin_commission ? row.admin_commission : 0+' '+row.currency;
-            } },
-            { data: 'admin_tax',         name: 'admin_tax' , render:function(data, type, row){
-                return row.admin_tax ? row.admin_tax : 0+' '+row.currency;
-            } },
+            // { data: 'admin_commission',         name: 'admin_commission' , render:function(data, type, row){
+            //     return row.admin_commission ? row.admin_commission : 0+' '+row.currency;
+            // } },
+            // { data: 'admin_tax',         name: 'admin_tax' , render:function(data, type, row){
+            //     return row.admin_tax ? row.admin_tax : 0+' '+row.currency;
+            // } },
             { data: 'transferred',        name: 'transferred' , render:function(data, type, row){
                 return (row.transferred <= 0 && row.organiser_earning > 0) ? "@lang('eventmie-pro::em.pending')" : "@lang('eventmie-pro::em.transferred')"; 
             }},
@@ -397,26 +397,26 @@ function sales_report(ticket_id = null) {
 
 
             // computing column Total of the complete result 
-            var admin_commission = api
-                .column( 10 )
-                .data()
-                .reduce( function (a, b) {
-                    return intVal(a) + intVal(b);
-                }, 0 );
+            // var admin_commission = api
+            //     .column( 10 )
+            //     .data()
+            //     .reduce( function (a, b) {
+            //         return intVal(a) + intVal(b);
+            //     }, 0 );
                 
-            // Update footer by showing the total with the reference of the column index 
-            $( api.column( 10 ).footer() ).html(admin_commission.toFixed(2)+' '+ currency);    
+            // // Update footer by showing the total with the reference of the column index 
+            // $( api.column( 10 ).footer() ).html(admin_commission.toFixed(2)+' '+ currency);    
                 
             // computing column Total of the complete result 
-            var admin_tax = api
-                .column( 11 )
-                .data()
-                .reduce( function (a, b) {
-                    return intVal(a) + intVal(b);
-                }, 0 );
+            // var admin_tax = api
+            //     .column( 11 )
+            //     .data()
+            //     .reduce( function (a, b) {
+            //         return intVal(a) + intVal(b);
+            //     }, 0 );
                 
-            // Update footer by showing the total with the reference of the column index 
-            $( api.column( 11 ).footer() ).html(admin_tax.toFixed(2)+' '+ currency);    
+            // // Update footer by showing the total with the reference of the column index 
+            // $( api.column( 11 ).footer() ).html(admin_tax.toFixed(2)+' '+ currency);    
                 
         },
 
