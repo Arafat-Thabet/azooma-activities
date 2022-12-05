@@ -118,26 +118,22 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="lgx-heading lgx-heading-white">
-                            <h2 class="heading">@lang('eventmie-pro::em.event_categories')</h2>
+                            <h2 class="heading"><i class="fas fa-bolt"></i> @lang('eventmie-pro::em.event_categories')</h2>
                         </div>
                     </div>
                 </div>
                 <!--//main row-->
-                <div class="row">
-                    <div class="col-12">
-                        <div class="sponsors-area sponsors-area-border sponsors-area-col3">
+                        <div class="sponsors-area sponsors-area-border sponsors-area-col3 main-activities justify-content-around">
                             @foreach($categories as $key => $item)
-                            <div class="single">
+                            <div class="single col-md-5">
                                 <a href="{{route('eventmie.events_index', ['category' => urlencode($item['name'])])}}">
                                     <img src="/storage/{{ $item['thumb'] }}" alt="{{ $item['slug'] }}"/>
                                     <span class="single-name">{{ $item['name'] }}</span>
                                 </a>
                             </div>
                             @endforeach
-                        </div>
                     </div>
                     <!--//col-->
-                </div>
             </div>
             <!--//container-->
         </div>

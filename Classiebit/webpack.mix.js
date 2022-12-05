@@ -19,7 +19,7 @@ const mix = require('laravel-mix');
  .js('resources/js/events_show/index.js', 'publishable/assets/js/events_show_v1.9.js')
  
  // events listing seperate vue js
- .js('resources/js/events_listing/index.js', 'public/js/events_listing_v1.8.js')
+ .js('resources/js/events_listing/index.js', 'publishable/assets/js/events_listing_v1.8.js')
  
  // organiser events
  .js('resources/js/myevents/index.js', 'public/js/myevents_v1.8.js')
@@ -31,7 +31,7 @@ const mix = require('laravel-mix');
  .js('resources/js/bookings_organiser/index.js', 'public/js/bookings_organiser_v1.8.js')
  
  // events welcome seperate vue js
- .js('resources/js/welcome/index.js', 'public/js/welcome_v1.8.js')
+ .js('resources/js/welcome/index.js', 'publishable/assets/js/welcome_v1.8.js')
  
  // events tags seperate vue js
  .js('resources/js/tags_manage/index.js', 'public/js/tags_manage_v1.8.js')

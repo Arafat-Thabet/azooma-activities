@@ -90,7 +90,6 @@
                         
                         <h3 class="title">{{ event.title }}</h3>
                         <h5 class="sub-title" v-if="event.excerpt">{{ event.excerpt }}</h5>
-                        <h5 class="sub-title text-primary">@{{ event.venue}}</h5>
 
                         
                     </div>

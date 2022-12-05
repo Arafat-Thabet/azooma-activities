@@ -204,6 +204,30 @@ text-align: start;
     margin: 5px !important;
 }
 
+.lgx-inner{
+    padding: 5rem 0;
+}
+
+.main-activities{
+    display: flex;
+    justify-content: space-between;
+}
+
+.lgx-event__image{
+    max-height: 300px;
+    width: 100%;
+}
+
+.lgx-event__tag span:nth-child(1n),
+.lgx-event__tag span:nth-child(2n){
+    color: #ddd !important;
+    font-size: 13px !important;
+}
+
+.lgx-event__info {
+margin-top: unset  !important;
+}
+
 @media (min-width: 766px) {
     .statistics.home-stat {
         display: grid;
