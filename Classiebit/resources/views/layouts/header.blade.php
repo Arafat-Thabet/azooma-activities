@@ -22,7 +22,9 @@
 
                 <nav class="navbar navbar-default lgx-navbar navbar-expand-lg">
                     <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" onclick="document.getElementById('navbar').classList.toggle('in')">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#navbar" aria-expanded="false" aria-controls="navbar"
+                            onclick="document.getElementById('navbar').classList.toggle('in')">
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
@@ -39,7 +41,7 @@
                         <ul class="nav navbar-nav lgx-nav navbar-right">
                             <!-- Authentication Links -->
                             @if(Auth::guard('admin')->check() && (checkUserRole('admin') OR checkUserRole('organiser')))
-              
+
                             @include('eventmie::layouts.member_header');
                             @else
                             @guest
@@ -48,20 +50,23 @@
                             @include('eventmie::layouts.member_header')
                             @endguest
                             @endif
-                     
+
 
                             {{-- Common Header --}}
                             {{-- categories menu items --}}
                             @php $categoriesMenu = categoriesMenu() @endphp
                             @if(!empty($categoriesMenu))
                             <li>
-                                <a id="navbarDropdown" class="dropdown-toggle active" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <i class="fas fa-stream"></i> @lang('eventmie-pro::em.categories') <span class="caret"></span>
+                                <a id="navbarDropdown" class="dropdown-toggle active" href="#" data-toggle="dropdown"
+                                    role="button" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <i class="fas fa-stream"></i> @lang('eventmie-pro::em.categories') <span
+                                        class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu multi-level">
                                     @foreach($categoriesMenu as $val)
                                     <li>
-                                        <a class="lgx-scroll" href="{{route('eventmie.events_index', ['category' => urlencode($val->name)])}}">
+                                        <a class="lgx-scroll"
+                                            href="{{route('eventmie.events_index', ['category' => urlencode($val->name)])}}">
                                             {{ $val->name }}
                                         </a>
                                     </li>
@@ -74,14 +79,18 @@
                             @php $headerMenuItems = headerMenu() @endphp
                             @if(!empty($headerMenuItems))
                             <li class="custom-menu">
-                                <a id="navbarDropdown" class="dropdown-toggle active" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="dropdown-toggle active" href="#" data-toggle="dropdown"
+                                    role="button" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <i class="fas fa-th"></i> @lang('eventmie-pro::em.more') <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu multi-level">
                                     @foreach($headerMenuItems as $parentItem)
                                     @if(!empty($parentItem->submenu))
                                     <li class="dropdown-submenu">
-                                        <a disabled class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="{{ $parentItem->icon_class }}"></i> {{ $parentItem->title }} &nbsp;&nbsp;<i class="fas fa-angle-right"></i></a>
+                                        <a disabled class="dropdown-toggle disabled" data-toggle="dropdown"
+                                            role="button" aria-haspopup="true" aria-expanded="false"><i
+                                                class="{{ $parentItem->icon_class }}"></i> {{ $parentItem->title }}
+                                            &nbsp;&nbsp;<i class="fas fa-angle-right"></i></a>
                                         <ul class="dropdown-menu">
                                             @foreach($parentItem->submenu as $childItem)
                                             <li>
@@ -94,7 +103,8 @@
                                     </li>
                                     @else
                                     <li>
-                                        <a class="lgx-scroll" target="{{ $parentItem->target }}" href="{{ $parentItem->url }}">
+                                        <a class="lgx-scroll" target="{{ $parentItem->target }}"
+                                            href="{{ $parentItem->url }}">
                                             <i class="{{ $parentItem->icon_class }}"></i> {{ $parentItem->title }}
                                         </a>
                                     </li>
@@ -105,8 +115,16 @@
                             @endif
 
                             <li>
-                                <a class="lgx-scroll lgx-btn lgx-btn-sm" href="{{ route('eventmie.events_index') }}"><i class="fas fa-calendar-day"></i> @lang('eventmie-pro::em.browse_events')</a>
+                                <a class="lgx-scroll lgx-btn lgx-btn-sm" href="{{ route('eventmie.events_index') }}"><i
+                                        class="fas fa-calendar-day"></i> @lang('eventmie-pro::em.browse_events')</a>
                             </li>
+
+                            @foreach(lang_selector() as $val)
+                            <li class="list-inline-item border-seperator">
+                                <a class="col-grey {{ $val == config('app.locale') ? 'active' : '' }}"
+                                    href="{{ route('eventmie.change_lang', ['lang' => $val]) }}">@lang('eventmie-pro::em.lang_'.$val)</a>
+                            </li>
+                            @endforeach
 
                         </ul>
                     </div>

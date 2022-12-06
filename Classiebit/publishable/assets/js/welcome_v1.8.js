@@ -2273,9 +2273,7 @@ var render = function render() {
       staticClass: "lgx-event__info"
     }, [event.repetitive ? _c("div", {
       staticClass: "lgx-event__featured"
-    }, [event.repetitive_type == 1 ? _c("span", [_vm._v(_vm._s(_vm.trans("em.repetitive_daily")))]) : _vm._e(), _vm._v(" "), event.repetitive_type == 2 ? _c("span", [_vm._v(_vm._s(_vm.trans("em.repetitive_weekly")))]) : _vm._e(), _vm._v(" "), event.repetitive_type == 3 ? _c("span", [_vm._v(_vm._s(_vm.trans("em.repetitive_monthly")))]) : _vm._e()]) : _vm._e(), _vm._v(" "), _vm.checkFreeTickets(event.tickets) ? _c("div", {
-      staticClass: "lgx-event__featured-left"
-    }, [_c("span", [_vm._v(_vm._s(_vm.trans("em.free")))])]) : _vm._e(), _vm._v(" "), _c("div", {
+    }, [event.repetitive_type == 1 ? _c("span", [_vm._v(_vm._s(_vm.trans("em.repetitive_daily")))]) : _vm._e(), _vm._v(" "), event.repetitive_type == 2 ? _c("span", [_vm._v(_vm._s(_vm.trans("em.repetitive_weekly")))]) : _vm._e(), _vm._v(" "), event.repetitive_type == 3 ? _c("span", [_vm._v(_vm._s(_vm.trans("em.repetitive_monthly")))]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c("div", {
       staticClass: "meta-wrapper"
     }, [_c("span", [_vm._v(" " + _vm._s(_vm.changeDateFormat(_vm.userTimezone(event.start_date + " " + event.start_time, "YYYY-MM-DD HH:mm:ss").format("YYYY-MM-DD"), "YYYY-MM-DD")))]), _vm._v(" "), event.start_date != event.end_date ? _c("span", [_vm._v(_vm._s(_vm.changeDateFormat(_vm.userTimezone(event.end_date + " " + event.end_time, "YYYY-MM-DD HH:mm:ss").format("YYYY-MM-DD"), "YYYY-MM-DD")) + " ")]) : _c("span", [_vm._v(_vm._s(_vm.changeTimeFormat(_vm.userTimezone(event.start_date + " " + event.start_time, "YYYY-MM-DD HH:mm:ss").format(_vm.date_format.vue_time_format))) + " - " + _vm._s(_vm.changeTimeFormat(_vm.userTimezone(event.end_date + " " + event.end_time, "YYYY-MM-DD HH:mm:ss").format(_vm.date_format.vue_time_format))) + " " + _vm._s("(" + _vm.showTimezone() + ")"))]), _vm._v(" "), _c("span", [_vm._v(_vm._s(event.city))])]), _vm._v(" "), _c("h3", {
       staticClass: "title"

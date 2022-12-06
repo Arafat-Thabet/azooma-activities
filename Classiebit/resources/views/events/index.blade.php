@@ -20,7 +20,7 @@
 
 @section('javascript')
 
-<script>    
+<script>
     var path           = {!! json_encode($path, JSON_HEX_TAG) !!};
 </script>
 <script type="text/javascript" src="{{ eventmie_asset('js/events_listing_v1.8.js') }}"></script>

@@ -1,6 +1,6 @@
 <?php
 return [
-       /* xxxXXXxxx NO NEED TO TRANSLATE THESE xxxXXXxxx */    
+       /* xxxXXXxxx NO NEED TO TRANSLATE THESE xxxXXXxxx */
        "lang_en"                                => 'English',
        "lang_ar"                                => 'عربى',
        "lang_de"                                => 'Deutsche',
@@ -14,8 +14,8 @@ return [
        "lang_pt"                                => 'português',
        "lang_zh_CN"                             => '中国',
        "lang_zh_TW"                             => '中國',
-       /* xxxXXXxxx NO NEED TO TRANSLATE THESE xxxXXXxxx */    
-   
+       /* xxxXXXxxx NO NEED TO TRANSLATE THESE xxxXXXxxx */
+
     'reset'                             => "إعادة تعيين" ,
     'forgot'                            => "نسيت" ,
     'send'                              => "إرسال" ,
@@ -386,7 +386,7 @@ return [
     'th'                                => 'خ',
     'fr'                                => 'ج',
     'sa'                                => 'س',
-    
+
     'am'                                => 'AM',
     'pm'                                => 'PM',
     /* Calendar lang end*/
@@ -474,7 +474,7 @@ return [
     'search_event_by'                   => "اكتب اسم الحدث / المكان / المدينة / الولاية",
     'date_filter'                       => "مرشح التاريخ",
     'any_price'                         => "اي سعر",
-    'reset_filters'                     => "إعادة تعيين المرشحات",
+    'reset_filters'                     => "إعادة تعيين الفلتر",
     'organiser_not_found'               => "الشركة غير موجودة",
     'select_category'                   => "اختر الفئة",
     'event_name'                        => "عنوان الرحلة/الحدث",
@@ -619,9 +619,9 @@ return [
     'offline_payment_info'    => "تعليمات الدفع دون الاتصال بالإنترنت" ,
     'offline_payment_info_ie' => "تعليمات لإظهارها ضمن خيار الدفع دون اتصال" ,
     'expired'                 => 'تنقضي',
-    
+
     'rsvp'                    => 'R.S.V.P',
-    
+
     'accept_terms'            => 'بالنقر على عملية "تسجيل" ، أوافق على شروط الخدمة <a href="'.route('eventmie.page', ['page'=>'terms']).'" target="_blank">الشروط والاحكام</a> .  ',
     'order_terms'             => 'This order is subject to '.config('app.name').' <a href="'.route('eventmie.page', ['page'=>'terms']).'" target="_blank">Terms of Service</a> and <a href="'.route('eventmie.page', ['page'=>'privacy']).'" target="_blank">Privacy Policy</a>.',
 

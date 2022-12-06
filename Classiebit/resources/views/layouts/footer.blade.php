@@ -3,7 +3,7 @@
     <div id="lgx-footer" class="lgx-footer-black"> <!--lgx-footer-white-->
         <div class="lgx-inner-footer">
             <div class="container-fluid">
-                
+
                 <div class="lgx-footer-area footer-custom-menu">
                     <div class="lgx-footer-single footer-brand">
                         <img class="footer-brand-logo" src="/storage/{{ setting('site.logo') }}" alt="{{ setting('site.site_name') }}" />
@@ -29,9 +29,9 @@
                         <address>{{ setting('contact.address') }}</address>
                         <p class="text"><i class="fas fa-phone-alt"></i> {{ setting('contact.phone') }}</p>
                         <p class="text"><i class="fas fa-envelope"></i> {{ setting('contact.email') }}</p>
-                        
+
                         <a href="{{ route('eventmie.contact') }}" class="map-link">
-                            <i class="fas fa-map-marked-alt" aria-hidden="true"></i> 
+                            <i class="fas fa-map-marked-alt" aria-hidden="true"></i>
                             @lang('eventmie-pro::em.contact_find_us')
                         </a>
                     </div>
@@ -46,17 +46,17 @@
                             @if(setting('social.twitter'))
                             <li><a href="{{ 'https://twitter.com/'.setting('social.twitter') }}" target="_blank"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
                             @endif
-                            
+
                             @if(setting('social.instagram'))
                             <li><a href="{{ setting('social.instagram') }}" target="_blank"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
                             @endif
-                            
+
                             @if(setting('social.linkedin'))
                             <li><a href="{{ setting('social.linkedin') }}" target="_blank"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
                             @endif
                         </ul>
                     </div>
-                  
+
                 </div>
 
 
@@ -65,7 +65,7 @@
                 @if(!empty($footerMenuItems))
                 <div class="lgx-footer-area footer-custom-menu">
                     <div class="lgx-footer-single"></div>
-                    
+
                     @php $key = 1; @endphp
                     @foreach($footerMenuItems as $parentItem)
 
@@ -93,7 +93,7 @@
                 </div>
                 @endif
 
-                <div class="lgx-footer-bottom lgx-footer-single pb-4">
+                {{-- <div class="lgx-footer-bottom lgx-footer-single pb-4">
                     <ul class="list-inline">
                         @foreach(lang_selector() as $val)
                         <li class="list-inline-item border-seperator">
@@ -101,15 +101,15 @@
                         </li>
                         @endforeach
                     </ul>
-                </div>
-                
+                </div> --}}
+
                 <div class="lgx-footer-bottom">
                     <div class="lgx-copyright">
-                        <p> 
-                            <span>©</span> {{ date('Y') }} 
+                        <p>
+                            <span>©</span> {{ date('Y') }}
                             <a href="{{ eventmie_url() }}">{{ (setting('site.site_name') ? setting('site.site_name') : config('app.name')) }}</a><br>
 
-                            @if(!empty(setting('site.site_footer'))) 
+                            @if(!empty(setting('site.site_footer')))
                             {!! setting('site.site_footer') !!}
                             @endif
                         </p>

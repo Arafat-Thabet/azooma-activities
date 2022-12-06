@@ -1,15 +1,15 @@
 
-@font-face 
+@font-face
 {
   font-family: 'HelveticaNeue';
-  src: url("fonts/HelveticaNeueW23forSKY-Reg.eot") format("embedded-opentype"), 
+  src: url("fonts/HelveticaNeueW23forSKY-Reg.eot") format("embedded-opentype"),
   url("fonts/HelveticaNeueW23forSKY-Reg.woff") format("woff");
   font-weight: normal;
-  font-style: normal; 
+  font-style: normal;
 }
 @font-face {
 font-family: 'Din regular';
-src: url("fonts/DinNextRegular.eot") format("embedded-opentype"), 
+src: url("fonts/DinNextRegular.eot") format("embedded-opentype"),
 url("fonts/DinNextRegular.svg") format("svg"),
 url("fonts/DinNextRegular.woff") format("ttf"),
 url("fonts/DinNextRegular.woff") format("woff"),
@@ -17,9 +17,9 @@ url("fonts/DinNextRegular.woff2") format("woff2");
 font-weight: normal;
 font-style: normal; }
 
-@font-face { 
+@font-face {
 font-family: 'Din light';
-src: url("fonts/DinNextLight.eot") format("embedded-opentype"), 
+src: url("fonts/DinNextLight.eot") format("embedded-opentype"),
 url("fonts/DinNextLight.svg") format("svg"),
 url("fonts/DinNextLight.woff") format("ttf"),
 url("fonts/DinNextLight.woff") format("woff"),
@@ -29,7 +29,7 @@ font-style: light; }
 
 @font-face {
 font-family: 'Din meduim';
-src: url("fonts/DinNextMedium.eot") format("embedded-opentype"), 
+src: url("fonts/DinNextMedium.eot") format("embedded-opentype"),
 url("fonts/DinNextMedium.svg") format("svg"),
 url("fonts/DinNextMedium.woff") format("ttf"),
 url("fonts/DinNextMedium.woff") format("woff"),
@@ -39,7 +39,7 @@ font-style: meduim; }
 
 @font-face {
 font-family: 'Din bold';
-src: url("fonts/DinNextBold.eot") format("embedded-opentype"), 
+src: url("fonts/DinNextBold.eot") format("embedded-opentype"),
 url("fonts/DinNextBold.svg") format("svg"),
 url("fonts/DinNextBold.woff") format("ttf"),
 url("fonts/DinNextBold.woff") format("woff"),
@@ -60,7 +60,7 @@ body,a{font-family: 'Din regular','Open Sans', sans-serif !important;}
     font-size: 14px;
 }
     .statistics .box > i {float: right;}
-    
+
 element.style {
 }
 #search-input i {
@@ -129,9 +129,9 @@ i {
 .lgx-about-content-area .lgx-heading,.lgx-about-content{
     text-align: start;
 }
-.form-control 
+.form-control
  ,.multiselect__tags {
- 
+
     text-align: start !important;
 }
 .login-card,.card-registration{color: #fff;    background-color: #00192fba;
@@ -143,7 +143,7 @@ i {
 }
 .lgx-registration-form-box input.form-control, .lgx-registration-form-box input.wpcf7-form-control{
     color: black !important;
- 
+
 }
 .card-registration h3{color: #fff !important; }
 .card-registration .form-control {
@@ -161,7 +161,7 @@ i {
 .has-error .invalid-feedback{text-align: start !important;}
 .select2-container--default{
 width: 100%;
-text-align: start;  
+text-align: start;
   height: 40px !important;
 
 }
@@ -214,8 +214,11 @@ text-align: start;
 }
 
 .lgx-event__image{
-    max-height: 300px;
+    max-height: 250px;
     width: 100%;
+}
+.lgx-event__footer {
+    display: block !important;
 }
 
 .lgx-event__tag span:nth-child(1n),
@@ -236,7 +239,7 @@ margin-top: unset  !important;
     }
     .statistics.home-stat::before{
         content: unset;
-        
+
         }
 }
 @media (max-width: 767px) {
