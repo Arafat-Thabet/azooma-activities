@@ -119,7 +119,13 @@
     "Regional":"اعدادت اقليمية",
     "Mail Sender Name":"اسم المرسل ",
     "Mail Sender Email":"ايميل   المرسل ",
-    "Organisers": "المستخدمين"
+    "Organisers": "المستخدمين",
+    "Active": "نشط",
+    "offline": "عند الاستلام",
+    "online": "اون لاين",
+    "Inactive": "غير نشط",
+    "Paid": "تم الدفع",
+    "Booking status": "حالة الحجز"
 
 
-    } 
+    }

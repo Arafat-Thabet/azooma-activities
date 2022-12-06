@@ -23,32 +23,32 @@
 
     {{-- Main wrapper --}}
     <div class="lgx-container" id="eventmie_app">
-    
+
         @include('eventmie::layouts.header')
 
-        @php 
+        @php
             $no_breadcrumb = [
-                'eventmie.welcome', 
+                'eventmie.welcome',
                 'eventmie.events_show',
-                'eventmie.login', 
-                'eventmie.register', 
-                'eventmie.register_show', 
-                'eventmie.password.request', 
+                'eventmie.login',
+                'eventmie.register',
+                'eventmie.register_show',
+                'eventmie.password.request',
                 'eventmie.password.reset',
                 'eventmie.admin_profile',
                 'eventmie.profile',
                 'eventmie.myevents_index',
                 'eventmie.myevents_form',
-                
-                
-            ]    
+                'eventmie.obookings_organiser_bookings_show',
+
+            ]
         @endphp
         @if (!in_array(Route::currentRouteName(), $no_breadcrumb))
             @include('eventmie::layouts.breadcrumb')
         @endif
 
         <section class="main-wrapper">
-        
+
             {{-- page content --}}
             @yield('content')
 
@@ -62,7 +62,7 @@
     <!--Main wrapper end-->
 
     @include('eventmie::layouts.include_js')
-    
+
     {{-- Page specific javascript --}}
     @yield('javascript')
 

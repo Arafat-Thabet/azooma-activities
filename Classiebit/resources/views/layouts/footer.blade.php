@@ -4,7 +4,7 @@
         <div class="lgx-inner-footer">
             <div class="container-fluid">
 
-                <div class="lgx-footer-area footer-custom-menu">
+                <div class="lgx-footer-area footer-custom-menu p-0 py-3">
                     <div class="lgx-footer-single footer-brand">
                         <img class="footer-brand-logo" src="/storage/{{ setting('site.logo') }}" alt="{{ setting('site.site_name') }}" />
                         <p class="footer-brand-name">{{ setting('site.site_name') }}</p>
@@ -63,7 +63,7 @@
                 {{-- Admin footer menu items --}}
                 @php $footerMenuItems = footerMenu() @endphp
                 @if(!empty($footerMenuItems))
-                <div class="lgx-footer-area footer-custom-menu">
+                <div class="lgx-footer-area footer-custom-menu p-0">
                     <div class="lgx-footer-single"></div>
 
                     @php $key = 1; @endphp
@@ -103,7 +103,7 @@
                     </ul>
                 </div> --}}
 
-                <div class="lgx-footer-bottom">
+                <div class="lgx-footer-bottom p-2">
                     <div class="lgx-copyright">
                         <p>
                             <span>©</span> {{ date('Y') }}

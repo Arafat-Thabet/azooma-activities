@@ -20,7 +20,7 @@ class Booking extends Model
      * Table used
     */
     private $tb                 = 'bookings';
-    private $tb_tickets         = 'tickets'; 
+    private $tb_tickets         = 'tickets';
 
     /**
      * The "booted" method of the model.
@@ -29,30 +29,43 @@ class Booking extends Model
      */
     protected static function booted()
     {
-        
+
         if(\Request::route()->getName() != 'voyager.bookings.bulk_bookings')
         {
             static::addGlobalScope(new BulkScope);
         }
-        
+
         if(\Request::route()->getName() == 'voyager.bookings.bulk_bookings')
         {
             static::addGlobalScope('bulk_scope', function (Builder $builder) {
                 $builder->where(['is_bulk' => 1]);
             });
         }
-        
+
     }
-    
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
+        // organiser view booking of customer
+        public function organiser_view_booking($params = [])
+        {
+            return Booking::with('customer')->select('bookings.*')->from('bookings')
+                ->where($params)
+                ->first();
+        }
+
     // make booking
     public function make_booking($params = [])
     {
         return Booking::create($params);
-    }    
+    }
 
     // get booking for customer
     public function get_my_bookings($params = [])
-    {   
+    {
         return Booking::select('bookings.*')
                 ->from('bookings')
                 ->selectRaw("(SELECT E.slug FROM events E WHERE E.id = bookings.event_id) event_slug")
@@ -63,19 +76,19 @@ class Booking extends Model
                 ->orderBy('id', 'desc')
                 ->paginate(10);
     }
-    
+
 
     // check booking id for cancellation
     public function check_booking($params = [])
     {
         return Booking::
             where([
-                'status'        => 1, 
-                'customer_id'   => $params['customer_id'], 
-                'id'            => $params['booking_id'], 
-                'ticket_id'     => $params['ticket_id'], 
+                'status'        => 1,
+                'customer_id'   => $params['customer_id'],
+                'id'            => $params['booking_id'],
+                'ticket_id'     => $params['ticket_id'],
                 'event_id'      => $params['event_id'] ])
-            ->first();   
+            ->first();
     }
 
     // booking_cancel for customer
@@ -83,11 +96,11 @@ class Booking extends Model
     {
         return Booking::
                 where([
-                    'status'        => 1, 
-                    'checked_in'    => 0, 
-                    'customer_id'   => $params['customer_id'], 
-                    'id'            => $params['booking_id'], 
-                    'ticket_id'     => $params['ticket_id'], 
+                    'status'        => 1,
+                    'checked_in'    => 0,
+                    'customer_id'   => $params['customer_id'],
+                    'id'            => $params['booking_id'],
+                    'ticket_id'     => $params['ticket_id'],
                     'event_id'      => $params['event_id'] ])
                 ->update(['booking_cancel' => 1 ]);
     }
@@ -100,20 +113,20 @@ class Booking extends Model
     public function get_organiser_bookings($params = [])
     {
         $query = Booking::query();
-        
+
         $query->select('bookings.*', 'CM.customer_paid')
             ->from('bookings')
             ->selectRaw("(SELECT E.slug FROM events E WHERE E.id = bookings.event_id) event_slug")
             ->selectRaw("(SELECT E.online_location FROM events E WHERE E.id = bookings.event_id AND bookings.is_paid = 1  AND bookings.status = 1) online_location")
             ->leftJoin('commissions as CM', 'CM.booking_id', '=', 'bookings.id');
-            
+
             // in case of searching by between two dates
             if(!empty($params['start_date']) && !empty($params['end_date']))
             {
                 $query ->whereDate('bookings.created_at', '>=' , $params['start_date']);
                 $query ->whereDate('bookings.created_at', '<=' , $params['end_date']);
             }
-            
+
             // in case of searching by start_date
             if(!empty($params['start_date']) && empty($params['end_date']))
                 $query ->whereDate('bookings.created_at', $params['start_date']);
@@ -122,16 +135,16 @@ class Booking extends Model
             if($params['event_id'] > 0)
                 $query->where(['bookings.event_id' => $params['event_id']]);
 
-            
+
         return  $query->where([ 'bookings.organiser_id' => $params['organiser_id'] ])
                 ->orderBy('id', 'desc')
                 ->paginate(10);
     }
-    
+
     // check booking id for cancellation for organiser
     public function organiser_check_booking($params = [])
     {
-        return Booking::where($params)->first();   
+        return Booking::where($params)->first();
     }
 
     // booking_edit for customer by organiser
@@ -140,13 +153,7 @@ class Booking extends Model
         return Booking::where($params)->update($data);
     }
 
-    // organiser view booking of customer
-    public function organiser_view_booking($params = [])
-    {
-        return Booking::select('bookings.*')->from('bookings')
-            ->where($params)
-            ->first();  
-    }
+
 
     // only admin can delete booking
     public function delete_booking($params = [])
@@ -179,7 +186,7 @@ class Booking extends Model
             return Booking::where(['organiser_id' => $user_id])->count();
         }
         return Booking::count();
-    } 
+    }
 
     /**
      *  total revenue count
@@ -192,7 +199,7 @@ class Booking extends Model
             return Booking::where(['organiser_id' => $user_id])->sum('net_price');
         }
         return Booking::sum('net_price');
-    }    
+    }
 
 
     // update payment_type only when upgrading to v1.3.x
@@ -202,16 +209,16 @@ class Booking extends Model
         if($bookings->isNotEmpty())
         {
             foreach($bookings as $key => $value)
-            {   
+            {
                 // offline
                 if($value->transaction_id == 0 && $value->net_price > 0)
                 {
                     Booking::where(['id' => $value->id])->update(['payment_type' => 'offline']);
                 }
             }
-        }    
+        }
     }
-    
+
     // sum booked ticket quantity each booking date + each ticket id
     public function get_seat_availability_by_ticket($event_id = null)
     {
@@ -225,5 +232,5 @@ class Booking extends Model
                 ->get();
     }
 
-    
+
 }

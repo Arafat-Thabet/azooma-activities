@@ -36,4 +36,24 @@ class Customer extends \TCG\Voyager\Models\User  implements MustVerifyEmail
         return \App::getLocale();
     }
 
+    public function c_licenseLevel()
+    {
+        return $this->belongsTo(LicenseLevel::class,'diving_license_level');
+    }
+
+    public function c_identityType()
+    {
+        return $this->belongsTo(IdentityType::class, 'identity_type');
+    }
+
+    public function c_relativeType()
+    {
+        return $this->belongsTo(RelativeType::class, 'relative_relation');
+    }
+
+    public function c_nationality()
+    {
+        return $this->belongsTo(Country::class, 'nationality');
+    }
+
     }

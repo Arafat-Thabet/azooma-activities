@@ -1,7 +1,7 @@
 <?php
 
 namespace Classiebit\Eventmie\Http\Controllers;
-use App\Http\Controllers\Controller; 
+use App\Http\Controllers\Controller;
 use Facades\Classiebit\Eventmie\Eventmie;
 
 use Illuminate\Http\Request;
@@ -13,6 +13,7 @@ use Classiebit\Eventmie\Models\Ticket;
 use Classiebit\Eventmie\Models\Booking;
 use Classiebit\Eventmie\Models\Transaction;
 use Classiebit\Eventmie\Models\Commission;
+use Classiebit\Eventmie\Models\Customer;
 use Classiebit\Eventmie\Models\User;
 use Classiebit\Eventmie\Notifications\MailNotification;
 
@@ -29,8 +30,8 @@ class OBookingsController extends Controller
     {
         // language change
        $this->middleware('common');
-  
-        $this->middleware(['admin','organiser'])->except(['organiser_bookings_show', 'delete_booking', 
+
+        $this->middleware(['admin','organiser'])->except(['organiser_bookings_show', 'delete_booking',
         'get_customers']);
 
         $this->event        = new Event;
@@ -39,7 +40,7 @@ class OBookingsController extends Controller
         $this->transaction  = new Transaction;
         $this->commission   = new Commission;
     }
-    
+
     /**
      * Show my booking
      *
@@ -51,16 +52,16 @@ class OBookingsController extends Controller
         $path = false;
         if(!empty(config('eventmie.route.prefix')))
             $path = config('eventmie.route.prefix');
-        
+
         // if have booking email data then send booking notification
-        $is_success = !empty(session('booking_email_data')) ? 1 : 0;  
+        $is_success = !empty(session('booking_email_data')) ? 1 : 0;
 
         // show organiser_bookings
         return Eventmie::view($view, compact('path', 'is_success', 'extra'));
 
     }
 
-    
+
     /**
      * Show organiser bookings
      *
@@ -78,9 +79,9 @@ class OBookingsController extends Controller
         // in case of today and tomorrow and weekand
         if($request->start_date == $request->end_date)
             $params['end_date']     = null;
-    
+
         $bookings    = $this->booking->get_organiser_bookings($params);
-        
+
         return response([
             'bookings'  => $bookings->jsonSerialize(),
             'currency'  => setting('regional.currency_default'),
@@ -113,19 +114,19 @@ class OBookingsController extends Controller
 
         if(empty($check_booking))
             return error(__('eventmie-pro::em.booking').' '.__('eventmie-pro::em.not_found'), Response::HTTP_BAD_REQUEST );
-        
+
         $start_date              = Carbon::parse($check_booking['event_start_date'].' '.$check_booking['event_start_time']);
         $end_date                = Carbon::parse(Carbon::now());
-        
+
         // check date expired or not
         if($end_date > $start_date)
             return error(__('eventmie-pro::em.booking_cancellation_fail'), Response::HTTP_BAD_REQUEST );
 
-        // pre booking time cancellation check    
-        $pre_cancellation_time   = (float) setting('booking.pre_cancellation_time'); 
+        // pre booking time cancellation check
+        $pre_cancellation_time   = (float) setting('booking.pre_cancellation_time');
         $min                     = number_format((float)($start_date->diffInMinutes($end_date) ), 2, '.', '');
         $hour_difference         = (float)sprintf("%d.%02d", floor($min/60), $min%60);
-        
+
         if($pre_cancellation_time > $hour_difference)
             return error(__('eventmie-pro::em.booking_cancellation_fail'), Response::HTTP_BAD_REQUEST );
 
@@ -140,7 +141,7 @@ class OBookingsController extends Controller
         $data = [
             'booking_cancel'   => $request->booking_cancel,
             'status'           => $request->status ? $request->status : 0 ,
-            
+
             // is_paid
             'is_paid'          =>  $request->is_paid,
         ];
@@ -156,9 +157,9 @@ class OBookingsController extends Controller
             'organiser_id'     => userInfo()->id,
             'status'           => $request->status ? $request->status : 0,
         ];
-       
-        // edit commision table status when change booking table status change by organiser 
-        $edit_commission  = $this->commission->edit_commission($params);    
+
+        // edit commision table status when change booking table status change by organiser
+        $edit_commission  = $this->commission->edit_commission($params);
 
         if(empty($edit_commission))
             return error(__('eventmie-pro::em.commission').' '.__('eventmie-pro::em.not_found'), Response::HTTP_BAD_REQUEST );
@@ -167,8 +168,8 @@ class OBookingsController extends Controller
         $check_booking->booking_cancel = $data['booking_cancel'];
         $check_booking->status         = $data['status'];
         $check_booking->is_paid        = $data['is_paid'];
-        
-        // ====================== Notification ====================== 
+
+        // ====================== Notification ======================
         //send notification after bookings
         $msg[]                  = __('eventmie-pro::em.customer').' - '.$check_booking->customer_name;
         $msg[]                  = __('eventmie-pro::em.email').' - '.$check_booking->customer_email;
@@ -196,15 +197,15 @@ class OBookingsController extends Controller
         $mail['action_url']     = route('eventmie.mybookings_index');
         $mail['n_type']       = "cancel";
 
-        
+
         $notification_ids       = [1, $check_booking->organiser_id, $check_booking->customer_id];
-        
+
         $users = User::whereIn('id', $notification_ids)->get();
         try {
             \Notification::locale(\App::getLocale())->send($users, new MailNotification($mail, $extra_lines));
         } catch (\Throwable $th) {}
-        // ====================== Notification ======================  
-        
+        // ====================== Notification ======================
+
         return response([
             'status'=> true,
         ], Response::HTTP_OK);
@@ -213,13 +214,13 @@ class OBookingsController extends Controller
     // view coustomer booking by oraganiser
     public function organiser_bookings_show($id = null, $view = 'eventmie::bookings.show', $extra = [])
     {
-        
+
         $id    = (int) $id;
-        $organiser_id  = userInfo()->id; 
+        $organiser_id  = userInfo()->id;
 
         if(!$id)
               // redirect no matter what so that it never turns back
-              return response(['status'=>__('eventmie-pro::em.invalid').' '.__('eventmie-pro::em.data'), 'url'=>'/events'], Response::HTTP_OK);    
+              return response(['status'=>__('eventmie-pro::em.invalid').' '.__('eventmie-pro::em.data'), 'url'=>'/events'], Response::HTTP_OK);
 
         // admin can see booking detail page
         if(checkUserRole('admin'))
@@ -232,7 +233,7 @@ class OBookingsController extends Controller
             $booking   = $this->booking->organiser_check_booking($params);
             if(empty($booking))
                 // redirect no matter what so that it never turns back
-                return success_redirect(__('eventmie-pro::em.booking').' '.__('eventmie-pro::em.not_found'), route('eventmie.events_index'));  
+                return success_redirect(__('eventmie-pro::em.booking').' '.__('eventmie-pro::em.not_found'), route('eventmie.events_index'));
 
             $organiser_id  = $booking->organiser_id;
         }
@@ -243,25 +244,26 @@ class OBookingsController extends Controller
         ];
 
         // get customer booking by orgniser
-        $booking = $this->booking->organiser_view_booking($params);   
-    
+        $booking = $this->booking->organiser_view_booking($params);
+        $customer = Customer::with('c_licenseLevel','c_identityType','c_relativeType','c_nationality')->findOrFail($booking->customer_id);
+
         if(empty($booking))
         {
             // redirect no matter what so that it never turns back
-            return success_redirect(__('eventmie-pro::em.booking').' '.__('eventmie-pro::em.not_found'), route('eventmie.events_index'));  
-        }    
+            return success_redirect(__('eventmie-pro::em.booking').' '.__('eventmie-pro::em.not_found'), route('eventmie.events_index'));
+        }
 
         $currency   = setting('regional.currency_default');
-        
+
         $params = [
             'transaction_id' => $booking['transaction_id'],
             'order_number'   => $booking['order_number']
         ];
 
         // get transaction information by orgniser for this booking
-        $payment = $this->transaction->organiser_payment_info($params);   
-        
-        return Eventmie::view($view, compact('booking', 'payment', 'currency', 'extra'));
+        $payment = $this->transaction->organiser_payment_info($params);
+
+        return Eventmie::view($view, compact('booking', 'payment', 'currency', 'extra', 'customer'));
 
     }
 
@@ -280,7 +282,7 @@ class OBookingsController extends Controller
         // get event by event_slug
         if(empty($id))
             return error('Booking Not Found!', Response::HTTP_BAD_REQUEST );
-        
+
         $params    = [
             'id'     => $id,
         ];
@@ -289,21 +291,21 @@ class OBookingsController extends Controller
 
         if(empty($delete_booking))
         {
-            return error(__('eventmie-pro::em.booking_deleted_fail'), Response::HTTP_BAD_REQUEST );   
+            return error(__('eventmie-pro::em.booking_deleted_fail'), Response::HTTP_BAD_REQUEST );
         }
 
         $msg = __('eventmie-pro::em.booking_deleted');
-        
+
         return redirect()
         ->route("voyager.bookings.index")
         ->with([
             'message'    => $msg,
             'alert-type' => 'success',
         ]);
-        
+
     }
 
-    
+
     /**
      *  get customers
      */
@@ -319,7 +321,7 @@ class OBookingsController extends Controller
 
         if(empty($customers))
         {
-            return response()->json(['status' => false, 'customers' => $customers]);    
+            return response()->json(['status' => false, 'customers' => $customers]);
         }
 
         foreach($customers as $key => $val)
