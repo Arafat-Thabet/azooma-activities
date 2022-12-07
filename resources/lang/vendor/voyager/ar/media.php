@@ -2,6 +2,8 @@
 
 return [
     'add_new_folder'         => 'إضافة مجلد جديد',
+    'delete_question'        => 'هل أنت متأكد أنك تريد الحذف',
+
     'audio_support'          => 'متصفحك لا يدعم عنصر الصوت.',
     'create_new_folder'      => 'إنشاء مجلد جديد',
     'delete_folder_question' => 'سيؤدي حذف مجلد إلى إزالة جميع الملفات والمجلدات الموجودة في داخله',

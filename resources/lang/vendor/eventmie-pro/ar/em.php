@@ -618,7 +618,7 @@ return [
     'already_booked'          => "لقد وصلت إلى الحد الأقصى للحجز!" ,
     'offline_payment_info'    => "تعليمات الدفع دون الاتصال بالإنترنت" ,
     'offline_payment_info_ie' => "تعليمات لإظهارها ضمن خيار الدفع دون اتصال" ,
-    'expired'                 => 'تنقضي',
+    'expired'                 => 'انتهى',
 
     'rsvp'                    => 'R.S.V.P',
 

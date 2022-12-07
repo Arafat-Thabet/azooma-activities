@@ -254,3 +254,6 @@ margin-top: unset  !important;
         display: none !important;
     }
 }
+.dataTables_wrapper .dataTables_info {
+    float: right;
+}

@@ -62,11 +62,11 @@ class User extends \TCG\Voyager\Models\User  implements MustVerifyEmail
     public function total_customers($user_id = null)
     {
 
-        if (!empty($user_id)) {
+        if (!empty($user_id) && checkUserRole('organiser')) {
             return Booking::distinct('customer_id')->where(['organiser_id' => $user_id])->pluck('customer_id')->count();
         }
 
-        return User::where(['role_id' => 2])->count();
+        return Customer::count();
     }
 
     // total organizers

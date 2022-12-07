@@ -11,7 +11,7 @@
             <div class="container">
                 <div class="row" id="invoice_table">
                     <div class="text-end col-12 no-print" style="position: relative">
-                        <button class="btn btn-success btn-sm " style="position: absolute;top: 20px;left: 15px;" onclick="print_report('invoice_table')"><i class="fa fa-print"></i> {{ __('Print') }}</button>
+                        <button class="btn btn-success btn-sm " style="position: absolute;top: 20px;left: 15px;" onclick="print_report('invoice_table');"><i class="fa fa-print"></i> {{ __('Print') }}</button>
                     </div>
 
                     {{-- booking details --}}
@@ -35,7 +35,7 @@
 
                             <tr>
                                 <th>@lang('eventmie-pro::em.repetitive')</th>
-                                <td>{{$booking['event_repetitive'] == 0 ? 'No' : 'Yes'}}</td>
+                                <td>{{__($booking['event_repetitive'] == 0 ? 'No' : 'Yes')}}</td>
                             </tr>
 
                             <tr>

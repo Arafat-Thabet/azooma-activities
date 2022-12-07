@@ -134,7 +134,7 @@
                                 <div class="form-group">
                                     <label class="custom-control" id="event_id_label">{{ __('eventmie-pro::em.select').' '. __('eventmie-pro::em.event') }}</label>
                                     <select class="form-control" name="event_id" id="event_id">
-                                        <option>{{ __('voyager::generic.all') }} {{ __('voyager::generic.Events') }}</option>
+                                        <option>{{ __('voyager::generic.all') }}</option>
                                         @foreach ($events as $key => $value)
                                             <option value="{{ $value['id'] }}"> {{ $value['title'] }} </option>
                                         @endforeach 
@@ -155,7 +155,7 @@
                                 <input type="hidden" name="_token" value="{{csrf_token() }}">
                                 <input type="hidden" name="export_event_id" id="export_event_id" > 
                                 <input type="hidden" name="ticket_id" id="ticket_id"> 
-                                <button type="submit"  id="export_button" class="btn lgx-btn btn-block" ><i class="fas fa-file-csv"></i> {{ __('eventmie-pro::em.export_sales_report') }} CSV </button>
+                                <button disabled type="submit"  id="export_button" class="btn lgx-btn btn-block" ><i class="fas fa-file-csv"></i>   </button>
                             </form>
                         </div>
                     </div>
@@ -171,15 +171,15 @@
                                         <th>{{ __('voyager::generic.Event') }}</th>
                                         <th>{{ __('voyager::generic.Timing') }}</th>
                                         <th>{{ __('voyager::generic.Customer') }}</th>
-                                        <th>{{ __('voyager::generic.Booking') }} {{ __('voyager::generic.Date') }}</th>
+                                        <th>{{ __('Booking Date') }} </th>
                                         <th>{{ __('voyager::generic.Checked In') }}</th>
                                         <th>{{ __('voyager::generic.Ticket') }}</th>
-                                        <th>{{ __('voyager::generic.Order') }} {{ __('voyager::generic.total') }}</th>
+                                        <th> {{ __('Total Order') }}</th>
                                         <th>{{ __('voyager::generic.Organiser') }}</th>
-                                        <th>{{ __('voyager::generic.Organiser Earning') }}</th>
-                                        {{-- <th>{{ __('voyager::generic.Admin Commission') }}</th>
-                                        <th>{{ __('voyager::generic.Admin Tax') }}</th> --}}
-                                        <th>{{ __('voyager::generic.Payout') }}</th>
+                                        {{-- <th>{{ __('voyager::generic.Organiser Earning') }}</th>
+                                       <th>{{ __('voyager::generic.Admin Commission') }}</th>
+                                        <th>{{ __('voyager::generic.Admin Tax') }}</th> 
+                                        <th>{{ __('voyager::generic.Payout') }}</th>--}}
                                     </tr>      
                                 </thead>		
                                 
@@ -194,10 +194,10 @@
                                         <th></th>
                                         <th></th>
                                         <th></th>
-                                        <th></th>
                                         {{-- <th></th>
-                                        <th></th> --}}
                                         <th></th>
+                                        <th></th> 
+                                        <th></th>--}}
                                     </tr>
                                 </tfoot>
                                 
@@ -223,7 +223,7 @@
                                 <input type="hidden" name="_token" value="{{csrf_token() }}">
                                 <div class="form-group">
                                     <select class="form-control" name="event_id_ticket_stats" id="event_id_ticket_stats">
-                                        <option>{{ __('voyager::generic.all') }} {{ __('voyager::generic.Events') }}</option>
+                                        <option>{{ __('voyager::generic.all') }} </option>
                                         @foreach ($events as $key => $value)
                                             <option value="{{ $value['id'] }}"> {{ $value['title'] }} </option>
                                         @endforeach 
@@ -271,11 +271,39 @@
 @endif
 
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 {!! $eventsChart->script() !!}
 
 <script>
+    <?php 
+    $dt_lang=[
+        "filter" => "Filter",
+        "EmptyTable" => "No data available in table",
+        "info" => "عرض _START_ من _END_ اصل _TOTAL_ سجل",
+        "infoEmpty" => "عرض 0 من 0 اصل 0 سجل",
+        "sInfoFiltered" => "(filtered from _MAX_ total entries)",
+        "sInfoPostFix" => "",
+        "sInfoThousands" => ",",
+        "lengthMenu" => "عدد _MENU_ السجلات",
+        "loadingRecords" => "جاري التحميل...",
+        "processing" => "جاري التحميل...",
+        "search" => "بحث:",
+        "sZeroRecords" => "No matching records found",
+        "paginate" => [
+            "First" => "First",
+            "Last" => "Last",
+            "next" => "التالي",
+            "previous" => "السابق"
+        ],
+        "oAria" => [
+            "sSortAscending" => " => activate to sort column ascending",
+            "sSortDescending" => " => activate to sort column descending"
+        ]
+    ];
+    $json_dtlang=json_encode($dt_lang);
+    ?>
 var url                  = {!! json_encode(($isOrgDash ? route('eventmie.sales_report') : route('voyager.sales_report') )) !!}
 var token                = {!! json_encode(csrf_token()) !!}
 var isOrgDash            = {!! json_encode($isOrgDash, JSON_HEX_APOS) !!}
@@ -292,7 +320,12 @@ function sales_report(ticket_id = null) {
             [10, 25, 50, -1], 
             [10, 25, 50, "All"] 
         ],                
-        
+        "language": <?=$json_dtlang?>,
+        dom: 'Bfrtip',
+        buttons: [
+            'excelHtml5',
+           
+        ],
         ajax: {
             url  : {!! json_encode(($isOrgDash ? route('eventmie.sales_report') : route('voyager.sales_report'))) !!},
             type :'POST',
@@ -334,18 +367,18 @@ function sales_report(ticket_id = null) {
             { data: 'name',         name: 'name' , render:function(data, type, row){
                 return row.name +' <p>('+ row.email+')</p>';
             } },
-            { data: 'organiser_earning',         name: 'organiser_earning' , render:function(data, type, row){
+          /*  { data: 'organiser_earning',         name: 'organiser_earning' , render:function(data, type, row){
                 return row.organiser_earning ? row.organiser_earning : 0+' '+row.currency;
-            } },
+            } },*/
             // { data: 'admin_commission',         name: 'admin_commission' , render:function(data, type, row){
             //     return row.admin_commission ? row.admin_commission : 0+' '+row.currency;
             // } },
             // { data: 'admin_tax',         name: 'admin_tax' , render:function(data, type, row){
             //     return row.admin_tax ? row.admin_tax : 0+' '+row.currency;
             // } },
-            { data: 'transferred',        name: 'transferred' , render:function(data, type, row){
+           /* { data: 'transferred',        name: 'transferred' , render:function(data, type, row){
                 return (row.transferred <= 0 && row.organiser_earning > 0) ? "@lang('eventmie-pro::em.pending')" : "@lang('eventmie-pro::em.transferred')"; 
-            }},
+            }},*/
         ],
 
         footerCallback : function ( row, data, start, end, display ) {
@@ -382,7 +415,7 @@ function sales_report(ticket_id = null) {
                 }, 0 );
                 
             // Update footer by showing the total with the reference of the column index 
-            $( api.column( 7 ).footer() ).html(customer_paid.toFixed(2)+' '+ currency);    
+           /* $( api.column( 7 ).footer() ).html(customer_paid.toFixed(2)+' '+ currency);    
                 
                 // computing column Total of the complete result 
             var organiser_earning = api
@@ -390,10 +423,10 @@ function sales_report(ticket_id = null) {
                 .data()
                 .reduce( function (a, b) {
                     return intVal(a) + intVal(b);
-                }, 0 );
+                }, 0 );*/
                 
             // Update footer by showing the total with the reference of the column index 
-            $( api.column( 9 ).footer() ).html(organiser_earning.toFixed(2)+' '+ currency);    
+          //  $( api.column( 9 ).footer() ).html(organiser_earning.toFixed(2)+' '+ currency);    
 
 
             // computing column Total of the complete result 
@@ -461,7 +494,7 @@ function events_total_by_sales_price() {
             [10, 25, 50, 'all'], 
             [10, 25, 50, "All"] 
         ],                
-        
+        "language": <?=$json_dtlang?>,
         ajax: {
             url  : {!! json_encode(($isOrgDash ? route('eventmie.event_total_by_sales_price') : route('voyager.event_total_by_sales_price'))) !!},
             type :'POST',

@@ -77,7 +77,6 @@
                                             @endif
                                         </th>
                                         @endforeach
-                                        <th> {{ __('eventmie-pro::em.expired') }} </th>
                                         <th class="actions text-right"  style="max-width:250px;min-width: 150px;" >{{ __('voyager::generic.actions') }}</th>
                                     </tr>
                                 </thead>
@@ -136,13 +135,13 @@
 
                                                     @if($row->getTranslatedAttribute('display_name') == 'Booking Cancel')
                                                         @if($data->{$row->field} == 1)
-                                                            {{ __('voyager::generic.pending') }}
+                                                            {{ __('Cancel pending') }}
                                                         @elseif($data->{$row->field} == 2)
                                                             {{ __('voyager::generic.approved') }}
                                                         @elseif($data->{$row->field} == 3)
                                                             {{ __('voyager::generic.refunded') }}
                                                         @else
-                                                            {{ __('voyager::generic.no') }} {{ __('voyager::generic.cancellation') }}
+                                                      {{ __('No') }}
                                                         @endif
                                                     @endif
                                                     
@@ -157,9 +156,9 @@
 
                                                     @if($row->field == 'checked_in')
                                                         @if($data->{$row->field} == 1)
-                                                            {{ __('voyager::generic.yes') }}
+                                                            {{ __('Yes') }}
                                                         @else
-                                                            {{ __('voyager::generic.no') }}
+                                                            {{ __('No') }}
                                                         @endif
                                                     @endif
 
@@ -272,15 +271,6 @@
                                             </td>
                                         @endforeach
 
-                                        <td>
-                                            
-                                            {{
-                                            
-                                            (\Carbon\Carbon::parse($data->event_end_date.' '.$data->event_end_time)->timezone(setting('regional.timezone_default')) <= \Carbon\Carbon::now()->timezone(setting('regional.timezone_default'))) ?  __('voyager::generic.yes') : __('voyager::generic.no') 
-                                        
-                                            }}
-                                        
-                                        </td>
                                        
                                         <td class="no-sort no-click bread-actions  bread-td-actions" id="bread-actions">
 

@@ -236,6 +236,7 @@
                                                     @include('voyager::multilingual.input-hidden-bread-browse')
                                                     <span>{{ $data->{$row->field} }}</span>
                                                 @endif
+                                             
                                             </td>
                                         @endforeach
                                         <td class="no-sort no-click bread-actions bread--td-actions" id="bread-actions">
