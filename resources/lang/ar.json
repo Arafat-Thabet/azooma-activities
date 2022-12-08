@@ -87,10 +87,10 @@
     "Checked In":"Checked In",
     "Payment Type":"نوع الدفع",
     "Is Paid":"تم الدفع",
-    "Ticket Title":"عنوان التذكرة",
+    "Ticket Title":" التذكرة",
     "Order Number":"رقم الطلب",
     "Bookings":"الحجز",
-    "Event Title":"عنوان الحجز",
+    "Event Title":" الحجز",
     "Net Price":"صافي السعر",
     "Taxes":"الضرائب",
     "Rate Type":"نوع الضريبة",
@@ -125,7 +125,15 @@
     "online": "اون لاين",
     "Inactive": "غير نشط",
     "Paid": "تم الدفع",
-    "Booking status": "حالة الحجز"
-
+    "Booking status": "حالة الحجز",
+    "No":"لا",
+    "Yes":"نعم",
+    "Event Category":"الفئة",
+       "Cancel pending":"عملية الالغاء معلقة",
+       "Contacts":"رسائل تواصل معنا",
+       "Sending At":"ارسلت بتاريخ",
+       "End_Date":"تاريخ الانتهاء",
+       "Booking Date":"تاريخ الحجز",
+       "Total Order":"اجمالي الطلب "
 
     }
