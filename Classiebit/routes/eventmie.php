@@ -82,8 +82,11 @@ Route::group([
     'prefix' => config('eventmie.route.prefix') . '/' . config('eventmie.route.admin_prefix'),
 ], function () use ($namespace) {
     $controller     = $namespace . '\Voyager\DashboardController';
-
+    $BookingsController     = $namespace . '\BookingsController';
+    
     \Voyager::routes();
+    
+    Route::get('/add_book_escort', "$BookingsController@add_book_escort")->name('add_book_escort');
 
     /* Override Voyager Default Routes */
     Route::get('/', "$controller@index")->name('voyager.dashboard');

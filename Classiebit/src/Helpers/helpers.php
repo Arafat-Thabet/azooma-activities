@@ -180,7 +180,52 @@ if (!function_exists('this_user')) {
       return  userInfo()->id??0;
     }
 }
+/**
+ * prepare a anchor tag for modal 
+ * 
+ * @param string $url
+ * @param string $title
+ * @param array $attributes
+ * @return html link of anchor tag
+ */
+if (!function_exists('modal_anchor')) {
 
+	function modal_anchor($url, $title = '', $attributes = array())
+	{
+		$attributes["data-act"] = "ajax-modal";
+		if (in_array("data-modal-title", $attributes) && isset($attributes['data-modal-title'])) {
+			$attributes["data-title"] = $attributes["data-modal-title"];
+		} else {
+			$attributes["data-title"] = $attributes["title"]??'';
+		}
+		$attributes["data-action-url"] = $url;
+
+		return js_anchor($title, $attributes);
+	}
+}
+/**
+ * prepare a anchor tag for any js request
+ * 
+ * @param string $title
+ * @param array $attributes
+ * @return html link of anchor tag
+ */
+if (!function_exists('js_anchor')) {
+
+	function js_anchor($title = '', $attributes = '')
+	{
+		$title = (string) $title;
+		$html_attributes = "";
+
+		if (is_array($attributes)) {
+			foreach ($attributes as $key => $value) {
+				$html_attributes .= ' ' . $key . '="' . $value . '"';
+			}
+		}
+
+		return '<a href="#"' . $html_attributes . '>' . $title . '</a>';
+	}
+}
 
 /**
  * Detect RTL

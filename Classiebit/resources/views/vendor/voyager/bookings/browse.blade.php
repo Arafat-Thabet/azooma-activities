@@ -286,7 +286,7 @@
                                             <a href="{{ route('eventmie.obookings_organiser_bookings_show',[$data->id])}}" title="{{ __('voyager::generic.view') }}" class="btn btn-sm btn-warning view pull-right">
                                                 <i class="voyager-eye"></i> <span class="hidden-xs hidden-sm"></span>
                                             </a>
-
+<?=modal_anchor(route('add_book_escort'),__('Add booking escort'),array("class"=>"btn btn-sm btn-primary","title"=>__('Add booking escort')))?>
                                             <a title="{{ __('voyager::generic.download') }}" href="{{ route('eventmie.downloads_index',[$data->id, $data->order_number])}}" class="btn btn-sm btn-success download pull-right">
                                                 <i class="voyager-download"></i> <span class="hidden-xs hidden-sm"></span>
                                             </a>
@@ -341,7 +341,7 @@
         </div>
     </div>
 @stop
-
+@include('eventmie::layouts.modal')
 @section('css')
 @if(!$dataType->server_side && config('dashboard.data_tables.responsive'))
     <link rel="stylesheet" href="{{ voyager_asset('lib/css/responsive.dataTables.min.css') }}">
@@ -500,4 +500,89 @@
 
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script>
+    //set datepicker language
+
+    $(document).on('click', '[data-act=ajax-modal]', function() {
+        var data = {
+                ajaxModal: 1
+            },
+            url = $(this).attr('data-action-url'),
+            isLargeModal = $(this).attr('data-modal-lg'),
+            title = $(this).attr('data-title');
+        if (!url) {
+            console.log('Ajax Modal: Set data-action-url!');
+            return false;
+        }
+        console.log('sss');
+        if (title) {
+            $("#ajaxModalTitle").html(title);
+        } else {
+            $("#ajaxModalTitle").html($("#ajaxModalTitle").attr('data-title'));
+        }
+
+        $("#ajaxModalContent").html($("#ajaxModalOriginalContent").html());
+        $("#ajaxModalContent").find(".original-modal-body").removeClass("original-modal-body").addClass("modal-body");
+        $("#ajaxModal").modal('show');
+
+        $(this).each(function() {
+            $.each(this.attributes, function() {
+                if (this.specified && this.name.match("^data-post-")) {
+                    var dataName = this.name.replace("data-post-", "");
+                    data[dataName] = this.value;
+                }
+            });
+        });
+        ajaxModalXhr = $.ajax({
+            url: url,
+            data: data,
+            cache: false,
+            type: 'GET',
+            success: function(response) {
+                $("#ajaxModal").find(".modal-dialog").removeClass("mini-modal");
+                if (isLargeModal === "1") {
+                    $("#ajaxModal").find(".modal-dialog").addClass("modal-lg");
+                }
+                $("#ajaxModalContent").html(response);
+
+                var $scroll = $("#ajaxModalContent").find(".modal-body"),
+                    height = $scroll.height(),
+                    maxHeight = $(window).height() - 200;
+                if (height > maxHeight) {
+                    height = maxHeight;
+                    /* if ($.fn.mCustomScrollbar) {
+                         $scroll.mCustomScrollbar({setHeight: height, theme: "minimal-dark", autoExpandScrollbar: true});
+                     }*/
+                }
+            },
+            statusCode: {
+                404: function() {
+                    $("#ajaxModalContent").find('.modal-body').html("404: Page not found.");
+                    Swal.fire({
+                        icon: 'error',
+                        title: '404: Page not found.',
+                        text: 'Something went wrong!',
+
+                    });
+
+                }
+            },
+            error: function() {
+                $("#ajaxModalContent").find('.modal-body').html("");
+                Swal.fire({
+                    icon: 'error',
+                    title: '500: Internal Server Error.',
+                    text: 'Something went wrong!',
+
+                });
+            }
+        });
+        return false;
+    });
+</script>
+<script>
+       $('#ajaxModal').on('hidden.bs.modal', function(e) {
+        $("#ajaxModalContent").html('');
+    });
+</script>
 @stop

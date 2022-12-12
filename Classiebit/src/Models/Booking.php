@@ -2,6 +2,7 @@
 
 namespace Classiebit\Eventmie\Models;
 
+use Classiebit\Eventmie\Models\Booking_escort\Booking_escort;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 
@@ -230,6 +231,10 @@ class Booking extends Model
                 ->groupBy("event_start_date", "ticket_id")
                 ->orderBy('ticket_id')
                 ->get();
+    }
+    public function escorts()
+    {
+        return $this->hasManyThrough(Escort::class, Booking_escort::class,'escort_id','booking_id');
     }
 
 

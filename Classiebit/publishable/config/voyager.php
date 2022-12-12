@@ -197,8 +197,8 @@ return [
     ],
 
     'additional_js' => [
-        // 'jquery'   =>  "//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js",
-        // 'raphael'  =>  "//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js",
+         'jquery'   =>  "frontend-assets?path=js/jquery.min.js",
+     'bootstrap'  =>  "frontend-assets?path=js/bootstrap.bundle.min.js",
         // 'morris'   =>  "//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"
     ],
 

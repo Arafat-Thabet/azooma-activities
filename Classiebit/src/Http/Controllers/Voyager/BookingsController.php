@@ -65,6 +65,11 @@ class BookingsController extends BaseController
             'sortable' => false,
         ]);
     }
+    public function add_book_escort(Request $request)
+    {
+        return 'ss';
+    }
+    
     public function index(Request $request)
     {
         // GET THE SLUG, ex. 'posts', 'pages', etc.
