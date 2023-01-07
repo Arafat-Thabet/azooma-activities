@@ -257,3 +257,18 @@ margin-top: unset  !important;
 .dataTables_wrapper .dataTables_info {
     float: right;
 }
+textarea.resizable-editor{
+    width: 100%;
+    height: 100px;
+    text-align: left;
+}
+
+.select2-container--default[dir=rtl] .select2-selection--multiple .select2-selection__choice {
+    padding-left: 19px;}
+    .lgx-tab .lgx-nav, .lgx-tab .lgx-tab-content {
+        float: right;
+    }
+    .lgx-tab .nav-pills {
+        border-radius:0px 16px 16px 0px !important;
+      
+    }

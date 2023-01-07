@@ -85,9 +85,7 @@ Route::group([
     $BookingsController     = $namespace . '\BookingsController';
     
     \Voyager::routes();
-    
-    Route::get('/add_book_escort', "$BookingsController@add_book_escort")->name('add_book_escort');
-
+ 
     /* Override Voyager Default Routes */
     Route::get('/', "$controller@index")->name('voyager.dashboard');
     Route::post('sales/report', "$controller@sales_report")->name('voyager.sales_report');
@@ -190,7 +188,10 @@ Route::group([
     /* Bookings */
     Route::prefix('/bookings')->group(function () use ($namespace) {
         $controller = $namespace . '\BookingsController';
-
+        $EscortController = $namespace . '\EscortController';
+        
+        Route::get('/add_book_escort/{id}', $EscortController."@add_book_escort")->name('add_book_escort');
+        Route::post('/save_escort', $EscortController."@save")->name('save_escort');
         // Paypal Checkout
         Route::match(['get', 'post'], '/paypal/callback', "$controller@paypal_callback")->name('bookings_paypal_callback');
 

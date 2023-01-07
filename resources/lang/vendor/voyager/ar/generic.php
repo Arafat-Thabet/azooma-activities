@@ -25,6 +25,7 @@ return [
     'compass'                => 'البوصلة',
     'created_at'             => 'تاريخ الإنشاء',
     'custom'                 => 'معدل',
+    "Countries"               =>"الدول",
     'dashboard'              => 'لوحة التحكم',
     'database'               => 'قاعدة البيانات',
     'default'                => 'افتراضي',

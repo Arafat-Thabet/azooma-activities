@@ -134,6 +134,12 @@
        "Sending At":"ارسلت بتاريخ",
        "End_Date":"تاريخ الانتهاء",
        "Booking Date":"تاريخ الحجز",
-       "Total Order":"اجمالي الطلب "
+       "Total Order":"اجمالي الطلب ",
+       "Booking escorts":"مرافقين الحجز ",
+       "Add booking escort":"اضافة مرافق",
+       "Escorts":"المرافقين",
+       "Escort":"المرافق",
+       "please selected escorts":"خطأ الرجاء تحديد مرافق واحد على الاقل",
+       "Escorts updated":"تم تحديث بيانات الحجز بنجاح"
 
     }

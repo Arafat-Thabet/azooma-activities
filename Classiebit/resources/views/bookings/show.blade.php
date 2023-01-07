@@ -11,7 +11,7 @@
             <div class="container">
                 <div class="row" id="invoice_table">
                     <div class="text-end col-12 no-print" style="position: relative">
-                        <button class="btn btn-success btn-sm " style="position: absolute;top: 20px;left: 15px;" onclick="print_report('invoice_table');"><i class="fa fa-print"></i> {{ __('Print') }}</button>
+                        <button onclick="print_report('invoice_table');" class="btn btn-success btn-sm " style="position: relative;top: 20px;left: 15px;" ><i class="fa fa-print"></i> {{ __('Print') }}</button>
                     </div>
 
                     {{-- booking details --}}
@@ -166,6 +166,21 @@
 
                                         </td>
                                     </tr>
+                                    @if(!empty($booking_escorts))
+                                    <tr>
+                                        <th >@lang('Escorts')</th>
+                                        <td></td>
+                                    </tr>
+                                    @foreach($booking_escorts as $e)
+                                    <tr>
+                                        <th>@lang('Escort')</th>
+                                        <td>{{ $e->name}}
+
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    @endif
+
                                 </table>
                             </div>
                         </div>

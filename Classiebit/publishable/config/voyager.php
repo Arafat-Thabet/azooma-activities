@@ -197,8 +197,9 @@ return [
     ],
 
     'additional_js' => [
-         'jquery'   =>  "frontend-assets?path=js/jquery.min.js",
-     'bootstrap'  =>  "frontend-assets?path=js/bootstrap.bundle.min.js",
+       //  'index'   =>  "frontend-assets?path=js/index.js",
+  //       'jquery'   =>  "frontend-assets?path=js/jquery.min.js",
+//   'bootstrap'  =>  "frontend-assets?path=js/bootstrap.bundle.min.js",
         // 'morris'   =>  "//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"
     ],
 

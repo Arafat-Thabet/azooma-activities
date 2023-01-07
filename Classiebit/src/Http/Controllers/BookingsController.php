@@ -42,7 +42,7 @@ class BookingsController extends Controller
         $this->customer_id  = null;
         $this->organiser_id = null;
     }
-
+   
     // only customers can book tickets so check login user customer or not but admin and organisers can book tickets for customer
     protected function is_admin_organiser(Request $request)
     {

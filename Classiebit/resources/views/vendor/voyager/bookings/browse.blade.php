@@ -286,7 +286,7 @@
                                             <a href="{{ route('eventmie.obookings_organiser_bookings_show',[$data->id])}}" title="{{ __('voyager::generic.view') }}" class="btn btn-sm btn-warning view pull-right">
                                                 <i class="voyager-eye"></i> <span class="hidden-xs hidden-sm"></span>
                                             </a>
-<?=modal_anchor(route('add_book_escort'),__('Add booking escort'),array("class"=>"btn btn-sm btn-primary","title"=>__('Add booking escort')))?>
+<?=modal_anchor(route('eventmie.add_book_escort',[$data->id]),'<i class="text-primary voyager-plus"></i>',array("class"=>"btn btn-sm btn-primary text-primary","title"=>__('Add booking escort')))?>
                                             <a title="{{ __('voyager::generic.download') }}" href="{{ route('eventmie.downloads_index',[$data->id, $data->order_number])}}" class="btn btn-sm btn-success download pull-right">
                                                 <i class="voyager-download"></i> <span class="hidden-xs hidden-sm"></span>
                                             </a>

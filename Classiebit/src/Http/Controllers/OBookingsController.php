@@ -11,6 +11,7 @@ use Auth;
 use Classiebit\Eventmie\Models\Event;
 use Classiebit\Eventmie\Models\Ticket;
 use Classiebit\Eventmie\Models\Booking;
+use Classiebit\Eventmie\Models\Booking_escort;
 use Classiebit\Eventmie\Models\Transaction;
 use Classiebit\Eventmie\Models\Commission;
 use Classiebit\Eventmie\Models\Customer;
@@ -229,7 +230,6 @@ class OBookingsController extends Controller
             $params   = [
                 'id'  => $id,
             ];
-
             $booking   = $this->booking->organiser_check_booking($params);
             if(empty($booking))
                 // redirect no matter what so that it never turns back
@@ -242,6 +242,7 @@ class OBookingsController extends Controller
             'organiser_id' => $organiser_id,
             'id'           => $id,
         ];
+        $booking_escorts=Booking_escort::select(["*"])->where("booking_id","=",$id)->join('escorts', 'escorts.id', '=', 'booking_escorts.escort_id')->get();
 
         // get customer booking by orgniser
         $booking = $this->booking->organiser_view_booking($params);
@@ -263,7 +264,7 @@ class OBookingsController extends Controller
         // get transaction information by orgniser for this booking
         $payment = $this->transaction->organiser_payment_info($params);
 
-        return Eventmie::view($view, compact('booking', 'payment', 'currency', 'extra', 'customer'));
+        return Eventmie::view($view, compact('booking', 'payment', 'currency', 'extra', 'customer','booking_escorts'));
 
     }
 
